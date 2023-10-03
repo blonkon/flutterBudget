@@ -1,7 +1,7 @@
 class IndividualBar
 {
   final int x;
-  final int y;
+  final double y;
   IndividualBar({
     required this.x,
     required this.y,
