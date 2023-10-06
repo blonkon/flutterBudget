@@ -14,6 +14,7 @@ class MyBarGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     //initialisation BarDAta
     BudgetData MybudgetData = BudgetData(
         janAmount: budgetValue[0],
@@ -40,8 +41,12 @@ class MyBarGraph extends StatelessWidget {
             topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
            // leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
             rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            bottomTitles :AxisTitles(sideTitles: SideTitles(
+              showTitles: true,
+              getTitlesWidget: getBottomTitles,
+            ),
+            ),
           ),
-
           barGroups: MybudgetData.budgetData.map
             ((data) =>
               BarChartGroupData(
@@ -63,22 +68,54 @@ class MyBarGraph extends StatelessWidget {
     );
   }
 }
-Widget getBottomTitles(double value, TitleMeta meta) {
+Widget getBottomTitles(double value, TitleMeta meta){
   const style = TextStyle(
-    color: Colors.grey,
+    color: Colors.black,
     fontWeight: FontWeight.bold,
     fontSize: 14,
   );
   Widget text;
-
-  switch (value.toInt()) { // Remplacez "Switch" par "switch"
+  switch (value.toInt()){
     case 0:
-      text = const Text('S', style: style);
+      text= const Text('Jan', style: style,);
+      break;
+    case 1:
+      text= const Text('Fev', style: style,);
+      break;
+    case 2:
+      text= const Text('Mar', style: style,);
+      break;
+    case 3:
+      text= const Text('Avr', style: style,);
+      break;
+    case 4:
+      text= const Text('Mai', style: style,);
+      break;
+    case 5:
+      text= const Text('jui', style: style,);
+      break;
+    case 6:
+      text= const Text('Jul', style: style,);
+      break;
+    case 7:
+      text= const Text('Aut', style: style,);
+      break;
+    case 8:
+      text= const Text('Sep', style: style,);
+      break;
+    case 9:
+      text= const Text('Oct', style: style,);
+      break;
+    case 10:
+      text= const Text('Nov', style: style,);
+      break;
+    case 11:
+      text= const Text('Dec', style: style,);
       break;
     default:
-      text = const Text('Autre texte par défaut', style: style); // Ajoutez une valeur par défaut si nécessaire
+      text= const Text('', style: style,);
+      break;
   }
-
-  return text; // Ajoutez un "return" pour retourner le Widget
+  return SideTitleWidget(child: text, axisSide: meta.axisSide);
 }
 
