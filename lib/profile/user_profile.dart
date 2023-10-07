@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
+import 'package:share_plus/share_plus.dart';
 class UserProfil extends StatefulWidget {
   const UserProfil({super.key});
 
@@ -13,14 +14,24 @@ class _UserProfilState extends State<UserProfil> {
   void initState(){
     super.initState();
   }
+  void partagerApplication() {
+    final RenderBox box = context.findRenderObject() as RenderBox;
+    final String text = "Découvrez cette superbe application !";
+
+    Share.share(text,
+        subject: 'Sujet du partage',
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade900,
-        title: Center(
+          title: Center(
           child: Text("Profil"),
         ),
         leading: Container(
+          width: 10,
+          height: 10,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.white,
@@ -68,7 +79,7 @@ class _UserProfilState extends State<UserProfil> {
                       radius: 75,
                       backgroundColor: Colors.black,
                       child: ClipRRect(
-                        child: Image.asset('images/user.png'),
+                        child: Image.asset('assets/images/user.png'),
                       ),
                     ),
                   ),
@@ -77,7 +88,7 @@ class _UserProfilState extends State<UserProfil> {
             const SizedBox(
               height: 55,
             ),
-            const Padding(padding: EdgeInsets.all(20.0),
+            Padding(padding: EdgeInsets.all(20.0),
             child: Padding(
               padding: EdgeInsets.all(40.0),
               child: Column(
@@ -96,6 +107,7 @@ class _UserProfilState extends State<UserProfil> {
                   Card(
                     elevation:8,
                     child: ListTile(
+                      onTap: partagerApplication,
                       leading: Icon(
                         Icons.share,
                         color: Colors.green,
