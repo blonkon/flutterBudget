@@ -1,7 +1,5 @@
-import 'dart:js_interop';
 
 import 'package:flutter/material.dart';
-
 
 class UserProfil extends StatefulWidget {
   const UserProfil({super.key});
@@ -18,7 +16,23 @@ class _UserProfilState extends State<UserProfil> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
+        backgroundColor: Colors.green.shade900,
+        title: Center(
+          child: Text("Profil"),
+        ),
+        leading: Container(
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+          ),
+          child: IconButton( // Bouton de retour
+            color: Colors.green.shade900,
+            icon: const Icon(Icons.arrow_back_rounded, size: 40),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -46,14 +60,15 @@ class _UserProfilState extends State<UserProfil> {
                   )
                 ),
                 ),
+                //photo de profil
                 Positioned(
-                  bottom: -50.0,
+                  bottom: -80.0,
                   child: InkWell(
                     child: CircleAvatar(
                       radius: 75,
-                      backgroundColor: Colors.white,
+                      backgroundColor: Colors.black,
                       child: ClipRRect(
-                        child: Image.asset("images/user1.jpg"),
+                        child: Image.asset('images/user.png'),
                       ),
                     ),
                   ),
@@ -62,26 +77,69 @@ class _UserProfilState extends State<UserProfil> {
             const SizedBox(
               height: 55,
             ),
-            const Padding(padding: EdgeInsets.all(10.0),
+            const Padding(padding: EdgeInsets.all(20.0),
             child: Padding(
-              padding: EdgeInsets.all(4.0),
+              padding: EdgeInsets.all(40.0),
               child: Column(
                 children: [
                   Card(
-                    elevation: 4,
+                    elevation: 8,
                     child: ListTile(
                       leading: Icon(
-                        Icons.add_business_sharp,
-                        color: Colors.grey,
+                        Icons.bookmark_added_sharp,
+                        color: Colors.green,
                       ),
-                      title: Text("FOMBASouleymane"),
+                      title: Text("Evaluer l'Application"),
+                      tileColor: Colors.white,
+                    ),
+                  ),
+                  Card(
+                    elevation:8,
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.share,
+                        color: Colors.green,
+                      ),
+                      title: Text("PArtager l'application "),
+                      tileColor: Colors.white,
+                    ),
+                  ),
+                  Card(
+                    elevation:8,
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.bookmark_add,
+                        color: Colors.green,
+                      ),
+                      title: Text("A Propos"),
+                      tileColor: Colors.white,
+                    ),
+                  ),
+                  Card(
+                    elevation: 8,
+                    margin: EdgeInsets.only(top: 50),
+                    child: ListTile(
+                      title: Center(
+                        child: Text(
+                          "Se Déconnecter",
+                          style: TextStyle(
+                            fontSize: 24, //
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      tileColor: Colors.green,
                     ),
                   )
+
                 ],
               ),
-            ),)
+            ),
+            )
           ],
         ),
+
       ),
     );
   }

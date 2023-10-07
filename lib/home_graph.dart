@@ -1,5 +1,6 @@
-import 'package:budgetflutter/Statistique/chart_bar.dart';
 import 'package:flutter/material.dart';
+
+import 'Statistique/chart_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
