@@ -24,10 +24,10 @@ class _HomePageState extends State<HomePage> {
     24.40,
     14.40,
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: const Text('Statistiques'),
         leading: Container(
@@ -49,6 +49,6 @@ class _HomePageState extends State<HomePage> {
           child: MyBarGraph(budgetValue: budgetValue),
         ),
       ),
-    );
+      );
   }
 }
