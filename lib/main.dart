@@ -1,19 +1,17 @@
-import 'dart:io';
-
+import 'package:budgetflutter/Basebox.dart';
 import 'package:budgetflutter/depense/MaBaseDeDonnees.dart';
 import 'package:budgetflutter/depense/depense_accueil.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'depense/MontantModel.dart';
 
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Directory root = await getTemporaryDirectory(); // this is using path_provider
-  Hive
-    .init(root.path);
+  await Hive.initFlutter();
+  Hive.registerAdapter(MaBaseDeDonneesAdapter());
+  Catbox = await Hive.openBox<MaBaseDeDonnees>('userBox');
   runApp(
     MultiProvider(
       providers: [
@@ -51,7 +49,7 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
       home: depense_accueil(),
