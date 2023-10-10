@@ -58,7 +58,7 @@ class AlarmWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 250,
-      child: Image.asset("assets/alarme.png"),
+      child: Image.asset("assets/images/alarme.png"),
     );
   }
 }
@@ -79,7 +79,7 @@ class _ListeWidgetState extends State<ListeWidget> {
             Card(
               elevation: 5,
               child: ListTile(
-                leading: Image.asset("assets/iconjaune.png"),
+                leading: Image.asset("assets/images/voyage.png"),
                 title: Text("Alimentaire"),
                 subtitle: Text("Date"),
                 trailing: IconButton(
@@ -94,7 +94,7 @@ class _ListeWidgetState extends State<ListeWidget> {
             Card(
               elevation: 5,
               child: ListTile(
-                leading: Image.asset("assets/iconrouge.png"),
+                leading: Image.asset("assets/images/voyage.png"),
                 title: Text("Alimentaire"),
                 subtitle: Text("Date"),
                 trailing: IconButton(
@@ -109,7 +109,7 @@ class _ListeWidgetState extends State<ListeWidget> {
             Card(
               elevation: 5,
               child: ListTile(
-                leading: Image.asset("assets/iconjaune.png"),
+                leading: Image.asset("assets/images/voyage.png"),
                 title: Text("sport"),
                 subtitle: Text("Date"),
                 trailing: IconButton(
@@ -124,7 +124,7 @@ class _ListeWidgetState extends State<ListeWidget> {
             Card(
               elevation: 5,
               child: ListTile(
-                leading: Image.asset("assets/iconrouge.png"),
+                leading: Image.asset("assets/images/voyage.png"),
                 title: Text("sport"),
                 subtitle: Text("Date"),
                 trailing: IconButton(

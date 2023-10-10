@@ -1,5 +1,7 @@
 import 'package:budgetflutter/pages/alerte.dart';
 import 'package:budgetflutter/pages/categorie.dart';
+import 'package:budgetflutter/pages/home_graph.dart';
+import 'package:budgetflutter/pages/profil.dart';
 import 'package:budgetflutter/widget/home.dart';
 import 'package:budgetflutter/pages/historique.dart';
 import 'package:budgetflutter/pages/statistique.dart';
@@ -19,7 +21,7 @@ class _accueilState extends State<accueil> {
   final List<Widget> _pages = [
     const home(),
     alerte(),
-    const statistique(),
+    const HomePage(),
   ];
 
   void _chnagerPage(int index) {

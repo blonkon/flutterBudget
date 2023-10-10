@@ -1,7 +1,13 @@
+
 import 'package:budgetflutter/model/budget.dart';
 import 'package:budgetflutter/pages/accueil.dart';
 import 'package:budgetflutter/widget/home.dart';
 import 'package:budgetflutter/pages/historique.dart';
+
+
+import 'package:budgetflutter/pages/home_graph.dart';
+import 'package:budgetflutter/pages/profil.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,13 +23,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return const MaterialApp(
       title: 'Gestion budget',
       debugShowCheckedModeBanner: false,
       home: accueil(),
+
     );
   }
 }
+
 
 // class MyApp extends StatefulWidget {
 //   const MyApp({super.key});
@@ -40,5 +49,6 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
+
 
 

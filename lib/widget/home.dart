@@ -3,6 +3,7 @@ import 'package:budgetflutter/pages/budget.dart';
 import 'package:budgetflutter/pages/categorie.dart';
 import 'package:budgetflutter/pages/depense.dart';
 import 'package:budgetflutter/pages/historique.dart';
+import 'package:budgetflutter/pages/profil.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:budgetflutter/services/budgetService.dart';
@@ -60,7 +61,7 @@ class _homeState extends State<home> {
                   color: const Color(0xFF175419),
                   child: Column(
                     children: [
-                      const Row(
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -74,14 +75,17 @@ class _homeState extends State<home> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 15.0, right: 15),
-                            child: Icon(
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => UserProfil()));
+                            },
+                            icon: Icon(
                               Icons.account_circle_rounded,
                               color: Colors.white,
-                              size: 30.0,
+                              size: 30,
                             ),
-                          ),
+                          )
                         ],
                       ),
                       Padding(
