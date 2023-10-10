@@ -232,19 +232,6 @@ class _BudgetFormState extends State<BudgetForm> {
       ),
     );
   }
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != _selectedDate)
-      setState(() {
-        _selectedDate = picked;
-        _dateDebutController.text = _selectedDate.toString(); // Mettez à jour le champ de texte avec la date sélectionnée
-      });
-  }
 
   _showCategoryPicker() {
     showDialog(
