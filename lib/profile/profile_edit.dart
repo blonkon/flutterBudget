@@ -20,7 +20,9 @@ class _EditUserProfilState extends State<EditUserProfil> {
             Icons.arrow_back,
             color: Colors.white,
           ),
-          onPressed: (){},
+          onPressed: (){
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Container(
@@ -84,7 +86,9 @@ class _EditUserProfilState extends State<EditUserProfil> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  OutlinedButton(onPressed: (){},
+                  OutlinedButton(onPressed: (){
+                    Navigator.pop(context);
+                  },
                       child:Text("Annuler", style: TextStyle(
                         fontSize: 15,
                         letterSpacing: 2,
@@ -98,7 +102,9 @@ class _EditUserProfilState extends State<EditUserProfil> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),)
                     ),
                   ),
-                  ElevatedButton(onPressed: (){},
+                  ElevatedButton(onPressed: (){
+                    submit();
+                  },
                       child: Text("Enregistrer", style: TextStyle(
                         fontSize: 15,
                         letterSpacing: 2,
@@ -126,7 +132,12 @@ class _EditUserProfilState extends State<EditUserProfil> {
         obscureText: isPasswordTextfield ? isObscurePassword: false,
         decoration: InputDecoration(
           suffixIcon: isPasswordTextfield ?
-              IconButton(onPressed: () {},
+              IconButton(onPressed: () {
+                setState(() {
+                  isObscurePassword =! isObscurePassword;
+                },
+                );
+              },
                   icon: Icon(Icons.remove_red_eye, color: Colors.grey),
               ):null,
               contentPadding: EdgeInsets.only(bottom: 5),
@@ -141,5 +152,8 @@ class _EditUserProfilState extends State<EditUserProfil> {
         ),
       ),
     );
+  }
+  void submit(){
+    Navigator.of(context).pop();
   }
 }
