@@ -43,7 +43,7 @@ class _homeState extends State<home> {
   ];
 
   List card = [
-    budget(),
+    Budget(),
     depense(),
     categorie(),
     historique(),

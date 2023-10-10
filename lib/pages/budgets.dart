@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'ajout_budget.dart';
-import 'budget.dart';
+import 'budgetModel.dart';
 
 
 const d_green = Color(0xFF175419);
@@ -210,23 +210,23 @@ class _SearchBarState extends State<SearchBar> {
   }
 }
 
-List<Budget> listeBudgets = [
-  Budget(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
-  Budget(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
-  Budget(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
-  Budget(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
-  Budget(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
-  Budget(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
-  Budget(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
-  Budget(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
-  Budget(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
-  Budget(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
+List<BudgetModel> listeBudgets = [
+  BudgetModel(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+  BudgetModel(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
+  BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
+  BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
+  BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
+  BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
+  BudgetModel(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+  BudgetModel(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
+  BudgetModel(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+  BudgetModel(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
 ];
 
 
 
 class CustomCard extends StatelessWidget {
-  final Budget budget;
+  final BudgetModel budget;
 
   CustomCard({required this.budget});
 
