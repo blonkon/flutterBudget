@@ -89,13 +89,13 @@ class Categorie{
 
 class MontantModel extends ChangeNotifier {
 
-
+  int CategorieId=0;
   double _montant = 0;
   int USER_ID=1;
   List<Depense> Depenses = [];
   List<Categorie> Categories = [];
+  List<Categorie> CategorieTrie = [];
   MontantModel()  {
-
     // Appel de fetchAlbum() dans le constructeur pour initialiser _montant.
     fetchAlbum().then((double value) {
       _montant = value;
@@ -103,6 +103,7 @@ class MontantModel extends ChangeNotifier {
     });
   }
   List<Depense> get Depensesget => Depenses;
+  List<Categorie> get CategorieTrieget => CategorieTrie ;
   List<Categorie> get Categoriesget => Categories;
   double get montant => _montant;
 
@@ -170,4 +171,5 @@ class MontantModel extends ChangeNotifier {
      throw Exception('Erreur de requête HTTP : ${response.statusCode}');
    }
  }
+
   }

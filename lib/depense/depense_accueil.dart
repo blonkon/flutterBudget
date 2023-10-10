@@ -60,16 +60,15 @@ class depense_accueil extends StatelessWidget{
                     padding: EdgeInsets.only(top: 15),
                     child: Image.asset("assets/pocket2.png")
                 ),
-                Container(
-                  height: 500,
-                  padding: EdgeInsets.only(top: 40,left: 16,right: 16,bottom: 20),
+                Expanded(child: Container(
+                  padding: EdgeInsets.only(top: 40,left: 25,right: 25,bottom: 20),
                   child:
                   GridView.builder(
-
+                    shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: 16.0,
+                      crossAxisSpacing: 25.0,
                       crossAxisCount: 2, // Nombre de colonnes
-                      mainAxisSpacing: 18.0, // Espacement vertical entre les éléments
+                      mainAxisSpacing: 20.0, // Espacement vertical entre les éléments
                     ),
 
                     itemCount: context.watch<MontantModel>().Categories.length,
@@ -77,23 +76,51 @@ class depense_accueil extends StatelessWidget{
                       final categorie = context.watch<MontantModel>().Categories[index];
 
                       return GestureDetector(
-                          onTap: () {
-                            // Action à effectuer lorsque la catégorie est cliquée
-                          },
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            child:Categoriee(cat: categorie) ,
-                          )
+                        onTap: () {
+                          // Action à effectuer lorsque la catégorie est cliquée
+                        },
+                        child:Categoriee(cat: categorie) ,
                       );
                     },
                   ) ,
-                ),
 
+                ),
+                ),
+                Align(
+
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+
+                    padding: EdgeInsets.only(top: 6.0,bottom: 16.0),
+                    child: TextButton(
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        minimumSize: MaterialStateProperty.all<Size>(Size(160, 56)),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Color.fromRGBO(23, 84, 25, 1.0)),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        'Depenser',
+                        style: TextStyle(
+                          fontFamily: "Poppins",
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
           ],
         ),
 
-        );
+
+
+
+
+
+      );
+
   }
 
 }
