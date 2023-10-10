@@ -1,3 +1,4 @@
+import 'package:budgetflutter/depense/depense_accueil.dart';
 import 'package:budgetflutter/model/budget.dart';
 import 'package:budgetflutter/pages/budget.dart';
 import 'package:budgetflutter/pages/budgets.dart';
@@ -45,7 +46,7 @@ class _homeState extends State<home> {
 
   List card = [
     MyAppss(),
-    depense(),
+    depense_accueil(),
     categorie(),
     historique(),
   ];

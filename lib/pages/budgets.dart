@@ -243,7 +243,7 @@ class CustomCard extends StatelessWidget {
           children: [
             // Première colonne avec une image (vous pouvez garder cette partie)
             Image.asset('assets/iconalimentation.png'),
-
+            // Icon(icon)
             // Deuxième colonne contenant le texte (utilisez les données du budget)
             Expanded(
               child: Column(

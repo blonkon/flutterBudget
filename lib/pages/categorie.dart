@@ -51,7 +51,7 @@ class _categorieState extends State<categorie> {
         title: const Align(
           alignment: Alignment.center,
           child: Text(
-            "Historique",
+            "Categorie",
             style: TextStyle(
               color: Color(0xFF175419),
               fontFamily: 'Poppins',
@@ -143,7 +143,7 @@ class _categorieState extends State<categorie> {
                                   style: TextStyle(
                                     color:
                                         const Color.fromARGB(255, 30, 30, 30),
-                                    fontSize: 13,
+                                    fontSize: 12,
                                   ),
                                 )
                               ],
