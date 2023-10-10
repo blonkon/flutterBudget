@@ -18,7 +18,7 @@ class _accueilState extends State<accueil> {
 
   final List<Widget> _pages = [
     const home(),
-    const alerte(),
+    alerte(),
     const statistique(),
   ];
 
