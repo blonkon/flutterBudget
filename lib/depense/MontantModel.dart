@@ -91,10 +91,12 @@ class MontantModel extends ChangeNotifier {
 
   int CategorieId=0;
   double _montant = 0;
+  double _montantcat=0;
   int USER_ID=1;
+  String imgforliste = '';
   List<Depense> Depenses = [];
   List<Categorie> Categories = [];
-  List<Categorie> CategorieTrie = [];
+  List<Depense> CategorieTrie = [];
   MontantModel()  {
     // Appel de fetchAlbum() dans le constructeur pour initialiser _montant.
     fetchAlbum().then((double value) {
@@ -103,9 +105,11 @@ class MontantModel extends ChangeNotifier {
     });
   }
   List<Depense> get Depensesget => Depenses;
-  List<Categorie> get CategorieTrieget => CategorieTrie ;
+  List<Depense> get CategorieTrieget => CategorieTrie ;
   List<Categorie> get Categoriesget => Categories;
   double get montant => _montant;
+  double get montantcat => _montantcat;
+  String get imgforlist => imgforliste;
 
   void setMontant() {
     fetchAlbum().then((double value) {
@@ -171,5 +175,21 @@ class MontantModel extends ChangeNotifier {
      throw Exception('Erreur de requête HTTP : ${response.statusCode}');
    }
  }
-
+  void Trieur(int id){
+    this.CategorieTrie=[];
+    this.Depenses.forEach((element) {
+      if(element.categorieid==id){
+        this.CategorieTrie.add(element);
+      }
+    });
+  }
+  void Trieurmontant(int id){
+    this._montantcat=0;
+    this.Depenses.forEach((element) {
+      if(element.categorieid==id){
+        this._montantcat=this._montantcat+element.montant;
+      }
+    });
+    print(this._montantcat);
+  }
   }

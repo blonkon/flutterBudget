@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import 'Liste_depense.dart';
 import 'MontantModel.dart';
 
 class depense_accueil extends StatelessWidget{
@@ -17,7 +18,7 @@ class depense_accueil extends StatelessWidget{
         size: 32,
         color: Color.fromRGBO(23, 84, 25, 1.0),),
         onPressed: () {
-
+          Navigator.pop(context);
         },
       ),
         actions: [
@@ -77,6 +78,14 @@ class depense_accueil extends StatelessWidget{
 
                       return GestureDetector(
                         onTap: () {
+                          final montantModel = context.read<MontantModel>(); // Obtenir l'instance actuelle
+                          montantModel.Trieur(categorie.id);
+                          montantModel.imgforliste=categorie.img;
+                          montantModel.Trieurmontant(categorie.id);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Liste_depense()),
+                          );
                           // Action à effectuer lorsque la catégorie est cliquée
                         },
                         child:Categoriee(cat: categorie) ,
