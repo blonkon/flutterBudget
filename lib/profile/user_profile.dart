@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 class UserProfil extends StatefulWidget {
   const UserProfil({super.key});
@@ -14,14 +13,7 @@ class _UserProfilState extends State<UserProfil> {
   void initState(){
     super.initState();
   }
-  void partagerApplication() {
-    final RenderBox box = context.findRenderObject() as RenderBox;
-    final String text = "Découvrez cette superbe application !";
-
-    Share.share(text,
-        subject: 'Sujet du partage',
-        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
-  }
+  void partagerApplication() { }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -107,7 +99,7 @@ class _UserProfilState extends State<UserProfil> {
                   Card(
                     elevation:8,
                     child: ListTile(
-                      onTap: partagerApplication,
+                      onTap: (){},
                       leading: Icon(
                         Icons.share,
                         color: Colors.green,
