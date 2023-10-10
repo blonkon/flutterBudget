@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'ajout_budget.dart';
+import 'budget.dart';
+
 
 const d_green = Color(0xFF175419);
 
@@ -50,13 +51,23 @@ class MyAppss extends StatelessWidget {
               ),
             ],
           ),
+
         ),
         body: Column(
           children: [
-            FilterBar(), // Utilisation du widget de la barre de filtrage
+            FilterBar(), // Barre de filtrage en haut
             SearchBar(),
-            // Ajoutez le Card avec les colonnes ici
-            CustomCard(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Ajoutez le Card avec les colonnes ici
+                    for (var budget in listeBudgets)
+                      CustomCard(budget: budget),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
         backgroundColor: Colors.white,
@@ -86,6 +97,7 @@ class FilterBar extends StatefulWidget {
   @override
   _FilterBarState createState() => _FilterBarState();
 }
+
 
 class _FilterBarState extends State<FilterBar> {
   String selectedMonth = 'Janvier'; // Mois par défaut
@@ -198,7 +210,115 @@ class _SearchBarState extends State<SearchBar> {
   }
 }
 
+List<Budget> listeBudgets = [
+  Budget(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+  Budget(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
+  Budget(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
+  Budget(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
+  Budget(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
+  Budget(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
+  Budget(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+  Budget(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
+  Budget(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+  Budget(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
+];
+
+
+
 class CustomCard extends StatelessWidget {
+  final Budget budget;
+
+  CustomCard({required this.budget});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
+            // Première colonne avec une image (vous pouvez garder cette partie)
+            Image.asset('assets/iconalimentation.png'),
+
+            // Deuxième colonne contenant le texte (utilisez les données du budget)
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    budget.categorie,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    budget.date,
+                    style: TextStyle(fontSize: 14.0, color: d_green),
+                  ),
+                ],
+              ),
+            ),
+
+            // Troisième colonne avec le bouton d'options (les trois points verticaux)
+            PopupMenuButton<String>(
+              itemBuilder: (context) {
+                return [
+                  PopupMenuItem(
+                    value: 'detail',
+                    child: Row(
+                      children: [
+                        Icon(Icons.info),
+                        SizedBox(width: 8.0),
+                        Text('Détail'),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: 'modifier',
+                    child: Row(
+                      children: [
+                        Icon(Icons.edit),
+                        SizedBox(width: 8.0),
+                        Text('Modifier'),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: 'supprimer',
+                    child: Row(
+                      children: [
+                        Icon(Icons.delete),
+                        SizedBox(width: 8.0),
+                        Text('Supprimer'),
+                      ],
+                    ),
+                  ),
+                ];
+              },
+              onSelected: (value) {
+                // Code à exécuter en fonction de l'option sélectionnée
+                if (value == 'detail') {
+                  // Action de détail
+                } else if (value == 'modifier') {
+                  // Action de modification
+                } else if (value == 'supprimer') {
+                  // Action de suppression
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+/*class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -283,4 +403,8 @@ class CustomCard extends StatelessWidget {
       ),
     );
   }
-}
+}*/
+
+
+
+
