@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'ajout_budget.dart';
 import 'budgetModel.dart';
 
-
 const d_green = Color(0xFF175419);
 
 void main() {
@@ -33,14 +32,15 @@ class MyAppss extends StatelessWidget {
                   ),
                   child: Center(
                     child: Image.asset(
-                      'assets/back.png', // Chemin vers l'image de retour
+                      'assets/images/back.png', // Chemin vers l'image de retour
                       width: 24, // Largeur de l'image
                       height: 24, // Hauteur de l'image
                     ),
                   ),
                 ),
               ),
-              SizedBox(width: 250), // Espace entre le bouton de retour et le texte
+              SizedBox(
+                  width: 250), // Espace entre le bouton de retour et le texte
               Text(
                 'Budget', // Texte "Budget"
                 style: TextStyle(
@@ -51,7 +51,6 @@ class MyAppss extends StatelessWidget {
               ),
             ],
           ),
-
         ),
         body: Column(
           children: [
@@ -62,8 +61,7 @@ class MyAppss extends StatelessWidget {
                 child: Column(
                   children: [
                     // Ajoutez le Card avec les colonnes ici
-                    for (var budget in listeBudgets)
-                      CustomCard(budget: budget),
+                    for (var budget in listeBudgets) CustomCard(budget: budget),
                   ],
                 ),
               ),
@@ -76,15 +74,16 @@ class MyAppss extends StatelessWidget {
           onPressed: () {
             // Rediriger vers la nouvelle page lorsque le bouton "plus" est appuyé
             Navigator.push(
-           context,
+              context,
               MaterialPageRoute(
-              builder: (context) => ajout_budget(), // Remplacez "NouvellePage" par le nom de votre nouvelle page
-               ),
-             );
+                builder: (context) =>
+                    ajout_budget(), // Remplacez "NouvellePage" par le nom de votre nouvelle page
+              ),
+            );
           },
           elevation: 0,
           child: Center(
-            child:Image.asset('assets/ajout.png'),
+            child: Image.asset('assets/images/back.png'),
           ),
           // Vous pouvez utiliser une autre icône ou une image à la place
         ),
@@ -97,7 +96,6 @@ class FilterBar extends StatefulWidget {
   @override
   _FilterBarState createState() => _FilterBarState();
 }
-
 
 class _FilterBarState extends State<FilterBar> {
   String selectedMonth = 'Janvier'; // Mois par défaut
@@ -125,7 +123,8 @@ class _FilterBarState extends State<FilterBar> {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 12.0),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 1.0), // Style de la bordure
+          border: Border.all(
+              color: Colors.white, width: 1.0), // Style de la bordure
           borderRadius: BorderRadius.circular(4.0), // Coins arrondis
         ),
         child: Container(
@@ -211,19 +210,23 @@ class _SearchBarState extends State<SearchBar> {
 }
 
 List<BudgetModel> listeBudgets = [
-  BudgetModel(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
-  BudgetModel(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
+  BudgetModel(
+      categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+  BudgetModel(
+      categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
   BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
   BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
   BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
   BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
-  BudgetModel(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
-  BudgetModel(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
-  BudgetModel(categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
-  BudgetModel(categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
+  BudgetModel(
+      categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+  BudgetModel(
+      categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
+  BudgetModel(
+      categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+  BudgetModel(
+      categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
 ];
-
-
 
 class CustomCard extends StatelessWidget {
   final BudgetModel budget;
