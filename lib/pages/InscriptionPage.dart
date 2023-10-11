@@ -1,6 +1,9 @@
+import 'package:budgetflutter/pages/ConnexionPage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+
+import '../services/userService.dart';
 
 class InscriptionPage extends StatefulWidget {
   const InscriptionPage({Key? key}) : super(key: key);
@@ -13,6 +16,10 @@ class _LoginState extends State<InscriptionPage> {
   Map userData = {};
   final _formkey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordconfirmController = TextEditingController();
+  userService service = userService();
   Color mycolors = Color(0xFF175419);
   @override
   Widget build(BuildContext context) {
@@ -82,14 +89,15 @@ class _LoginState extends State<InscriptionPage> {
                                   ],
                                 ),
                                 child: TextFormField(
-                                  style: TextStyle(fontSize: 14.0),  // Adjust the font size here
+                                  style: TextStyle(fontSize: 14.0),
+                                   controller: _nameController,  // Adjust the font size here
                                   validator: MultiValidator([
                                     RequiredValidator(errorText: 'Entrez votre nom et prenom'),
                                     MinLengthValidator(3, errorText: 'Minimum 3 caractere'),
                                   ]),
                                   decoration: InputDecoration(
                                     hintText: 'Entrer votre Nom et Prenom',
-                                    labelText: 'Nom et Prenom',
+                                    labelText: 'Nom_Prenom',
                                     prefixIcon: Icon(
                                       Icons.person,
                                       color: mycolors,
@@ -122,6 +130,7 @@ class _LoginState extends State<InscriptionPage> {
                                 ),
                                 child: TextFormField(
                                     style: TextStyle(fontSize: 14.0),
+                                     controller: _emailController,
                                   validator: MultiValidator([
                                     RequiredValidator(
                                         errorText: 'Enter email address'),
@@ -175,6 +184,7 @@ class _LoginState extends State<InscriptionPage> {
                                     errorText:
                                     'le mots de passe doit contenir au moins un caractere')
                               ]),
+                                obscureText: true,
                               decoration: const InputDecoration(
                                 hintText: 'Mots de passe',
                                 labelText: 'Entrez votre mots de passe',
@@ -214,6 +224,7 @@ class _LoginState extends State<InscriptionPage> {
                               ),
                               child: TextFormField(
                                 style: TextStyle(fontSize: 14.0),
+                                 controller: _passwordconfirmController,
                                 validator: (value) {
                                     if (value != _passwordController.text) {
                                     return 'Les mots de passe ne correspondent pas';
@@ -249,10 +260,19 @@ class _LoginState extends State<InscriptionPage> {
                                   onPrimary: Colors.white, // Couleur du texte du bouton
                                 ),
                                 onPressed: () {
-                                  if (_formkey.currentState!.validate()) {
-                                    print('form submiitted');
-                                  }
+                                  service.saveUser(_nameController.text,
+                                      _emailController.text, _passwordController.text);
+                                  print("succes");
+                                  _nameController.clear();
+                                  _emailController.clear();
+                                  _passwordController.clear();
+                                 // _passwordconfirmController.clear(),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => ConnexionPage()),
+                                  );
                                 },
+
                                 child: const Text(
                                   'Se connectez',
                                   style: TextStyle(

@@ -1,7 +1,8 @@
+import 'package:budgetflutter/pages/accueil.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-
+import '../services/userService.dart';
 class ConnexionPage extends StatefulWidget {
   const ConnexionPage({Key? key}) : super(key: key);
 
@@ -12,7 +13,9 @@ class ConnexionPage extends StatefulWidget {
 class _LoginState extends State<ConnexionPage> {
   Map userData = {};
   final _formkey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  userService Service = userService();
   Color mycolors = Color(0xFF175419);
   @override
   Widget build(BuildContext context) {
@@ -83,6 +86,7 @@ class _LoginState extends State<ConnexionPage> {
                               ),
                               child: TextFormField(
                                 style: TextStyle(fontSize: 14.0),
+                                controller: _emailController,
                                 validator: MultiValidator([
                                   RequiredValidator(
                                       errorText: 'Enter email address'),
@@ -126,16 +130,16 @@ class _LoginState extends State<ConnexionPage> {
                               child: TextFormField(
                                 controller: _passwordController,
                                 style: TextStyle(fontSize: 14.0),
-                                validator: MultiValidator([
-                                  RequiredValidator(
-                                      errorText: 'Desolé entrez votre mots de passe'),
-                                  MinLengthValidator(8,
-                                      errorText:
-                                      'le mots de passe doit contenir au moins 8 caracteres'),
-                                  PatternValidator(r'(?=.*?[#!@$%^&*-])',
-                                      errorText:
-                                      'le mots de passe doit contenir au moins un caractere')
-                                ]),
+                              // validator: MultiValidator([
+                                //  RequiredValidator(
+                                  //    errorText: 'Desolé entrez votre mots de passe'),
+                                 // MinLengthValidator(8,
+                                   //   errorText:
+                                     // 'le mots de passe doit contenir au moins 8 caracteres'),
+                                 // PatternValidator(r'(?=.*?[#!@$%^&*-])',
+                                   //   errorText:
+                                     // 'le mots de passe doit contenir au moins un caractere')
+                                //]),
                                 decoration: const InputDecoration(
                                   hintText: 'Mots de passe',
                                   labelText: 'Entrez votre mots de passe',
@@ -169,9 +173,15 @@ class _LoginState extends State<ConnexionPage> {
                                   onPrimary: Colors.white, // Couleur du texte du bouton
                                 ),
                                 onPressed: () {
-                                  if (_formkey.currentState!.validate()) {
-                                    print('form submiitted');
-                                  }
+                                  Service.loginUser(
+                                      _emailController.text,
+                                      _passwordController.text);
+                                  _emailController.clear();
+                                  _passwordController.clear();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => accueil()),
+                                  );
                                 },
                                 child: const Text(
                                   'Se connectez',
@@ -266,6 +276,7 @@ class _LoginState extends State<ConnexionPage> {
                   text: TextSpan(
                     // style: DefaultTextStyle.of(context).style,
                     children: [
+                      
                       TextSpan(
                         text: 'Vous n avez pas de  compte ? ',
                         style: TextStyle(
@@ -274,13 +285,17 @@ class _LoginState extends State<ConnexionPage> {
                         ),
                       ),
                       TextSpan(
+                        
                         text: 'Inscrivez vous',
+                        
                         style: TextStyle(
                           color: Colors.blue,
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                         ),
+                         
                       ),
+                      
                     ],
                   ),
                 ),
