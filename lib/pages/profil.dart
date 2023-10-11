@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:budgetflutter/pages/modifierProfil.dart';
 import 'package:flutter/material.dart';
 
@@ -76,8 +78,8 @@ class _UserProfilState extends State<UserProfil> {
                 ),
                 //icone du boutton modifier profile
                 Positioned(
-                  bottom: 5,
-                  right: 100,
+                  bottom: -5,
+                  right: 150,
                   child: InkWell(
                     onTap: () {
                       Navigator.of(context).push(
@@ -105,6 +107,18 @@ class _UserProfilState extends State<UserProfil> {
             const SizedBox(
               height: 55,
             ),
+
+            Transform.translate(
+              offset: Offset(0 ,30),
+              child:
+            Text("Souleymane Fomba",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                )),),
+
             Padding(
               padding: EdgeInsets.all(20.0),
               child: Padding(
@@ -132,12 +146,13 @@ class _UserProfilState extends State<UserProfil> {
                         onTap: partagerApplication,
                         leading: Icon(
                           Icons.share,
-                          color: Colors.green,
+                          color: Colors.blue,
                         ),
                         title: Text("Partager l'application"),
                         tileColor: Colors.white,
                       ),
                     ),
+
                     Card(
                       elevation: 8,
                       child: ListTile(
@@ -146,7 +161,7 @@ class _UserProfilState extends State<UserProfil> {
                         },
                         leading: Icon(
                           Icons.help_outline,
-                          color: Colors.green,
+                          color: Colors.black,
                         ),
                         title: Text("A Propos"),
                         tileColor: Colors.white,
