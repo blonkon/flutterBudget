@@ -128,7 +128,6 @@ class _homeState extends State<home> {
                       ),
                     ),
                   ),
-
                   FutureBuilder<Budget>(
                     future: futureBudget,
                     builder: (context, snapshot) {
@@ -153,9 +152,8 @@ class _homeState extends State<home> {
                       // By default, show a loading spinner.
                       return const CircularProgressIndicator();
                     },
-                  )
-
-                  // Padding(
+                  ),
+                  // const Padding(
                   //   padding: EdgeInsets.only(bottom: 25.0, right: 1),
                   //   child: Text(
                   //     "140.000 f",

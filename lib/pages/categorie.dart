@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqlite_api.dart';
+import 'package:http/http.dart' as http;
 
 class categorie extends StatefulWidget {
   const categorie({super.key});
@@ -9,6 +13,30 @@ class categorie extends StatefulWidget {
 
 // ignore: camel_case_types
 class _categorieState extends State<categorie> {
+  //pour stocker les donnees dans une liste
+  List<dynamic> categorieList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    //pour recuperer les donnees
+    http.get(Uri.parse("http://10.0.2.2:8083/categorie/afficher")).then((resp) {
+      // print(resp.body);
+      //pour la mise a jour de affichage
+      setState(() {
+        //pour convertir en json en objet
+        categorieList = jsonDecode(resp.body);
+
+        print(categorieList);
+
+        // print(categorieList);
+      });
+    }).catchError((err) {
+      print('==========================erreur=============================');
+      print(err);
+    });
+  }
+
   List<String> nomCategorie = [
     "Alimentaire",
     "Loyer",
@@ -170,14 +198,16 @@ class _categorieState extends State<categorie> {
                 margin: const EdgeInsets.only(top: 20),
                 child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: 5,
+                    itemCount: categorieList.length,
                     itemBuilder: (context, index) {
                       final depense = depenses[index];
                       final icon = depense['icon'];
                       return Card(
                         child: ListTile(
                           leading: Image.asset("assets/images/$icon.png"),
-                          title: const Text('Alimentation'),
+                          title: Text('${categorieList[index]["nom"]}'),
+                          subtitle:
+                              Text('${categorieList[index]["idCategory"]}'),
                           trailing: IconButton(
                             icon: const Icon(
                               Icons.more_vert,

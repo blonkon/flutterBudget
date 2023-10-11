@@ -2,6 +2,9 @@ import 'package:budgetflutter/Basebox.dart';
 import 'package:budgetflutter/depense/MaBaseDeDonnees.dart';
 import 'package:budgetflutter/depense/depense_accueil.dart';
 import 'package:budgetflutter/pages/accueil.dart';
+import 'package:budgetflutter/pages/budget.dart';
+import 'package:budgetflutter/pages/categorie.dart';
+import 'package:budgetflutter/pages/historique.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -31,6 +34,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      routes: {
+        "/budget": (contex)=>budget(),
+        "/depense": (contex)=>depense_accueil(),
+        "/categorie": (contex)=>categorie(),
+        "/historique": (contex)=>historique(),
+      },  
       debugShowCheckedModeBanner: false,
       title: 'Flutter',
       theme: ThemeData(
