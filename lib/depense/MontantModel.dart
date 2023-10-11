@@ -27,7 +27,7 @@ class Depense {
   factory Depense.fromJson(Map<String, dynamic> json) {
     return Depense(
       montant: json['montant'] ?? 0.0,
-      id: json['id'] ?? 0,
+      id: json['idDepenses'] ?? 0,
       categorieid: json['budget']['categorie']['idCategorie'] ?? 0,
       description: json['description'] ?? '',
       userid: json['utilisateur']['idUtilisateur'],
@@ -54,6 +54,7 @@ class Categorie{
   String img;
   DateTime date;
   int montant;
+  int restant;
 
   Categorie({
     required this.titre,
@@ -61,7 +62,8 @@ class Categorie{
     required this.userid,
     required this.img,
     required this.date,
-    required this.montant
+    required this.montant,
+    required this.restant
   });
 
   factory Categorie.fromJson(Map<String, dynamic> json) {
@@ -70,7 +72,8 @@ class Categorie{
       titre: json['categorie']['titre'] ?? '',
       userid: json['utilisateur']['idUtilisateur'],
       img:'',
-      montant:json['montant'],
+      restant: json['montantRestant'] ?? 0,
+      montant:json['montant'] ?? 0,
       date:DateTime.parse(json['dateFin'])
     );
   }
@@ -82,7 +85,8 @@ class Categorie{
       'userid':userid,
       'img':img,
       'montant':montant,
-      'dateFin':date
+      'dateFin':date,
+      'montantRestant':restant
     };
   }
 }
@@ -97,6 +101,7 @@ class MontantModel extends ChangeNotifier {
   List<Depense> Depenses = [];
   List<Categorie> Categories = [];
   List<Depense> CategorieTrie = [];
+  double Categoriesolde_restant = 0 ;
   MontantModel()  {
     // Appel de fetchAlbum() dans le constructeur pour initialiser _montant.
     fetchAlbum().then((double value) {
@@ -191,5 +196,49 @@ class MontantModel extends ChangeNotifier {
       }
     });
     print(this._montantcat);
+  }
+  Future<void> deleted(Depense depense) async {
+    if(depense.userid==this.USER_ID){
+      final int id=depense.id;
+      final responsecategorie = await http.delete(Uri.parse('http://10.0.2.2:8080/Depenses/delete/$id'));
+      if(responsecategorie.statusCode==200){
+        print("${responsecategorie.body}");
+        // Supprimez la dépense de la liste Depenses
+        Depenses.remove(depense);
+        // Mettez à jour le montant total
+        _montant -= depense.montant;
+        _montantcat-= depense.montant;
+        // Mettez à jour la liste CategorieTrie si nécessaire
+        if (CategorieTrie.contains(depense)) {
+          CategorieTrie.remove(depense);
+        }
+        notifyListeners();
+      }
+    }
+
+
+  }
+  String formatMontant(double montant) {
+    if (montant < 1000) {
+      return montant.toString()+" Fcfa";
+    } else if (montant < 1000000) {
+      double montantEnK = montant / 1000;
+      return '${montantEnK.toStringAsFixed(2)}K';
+    } else {
+      double montantEnM = montant / 1000000;
+      return '${montantEnM.toStringAsFixed(2)}M';
+    }
+  }
+  void categoriesolde(int id){
+    double test=0;
+    this.Categories.forEach((element) {
+      if(element.id==id&&element.userid==this.USER_ID){
+        test=element.restant.toDouble();
+        this.Categoriesolde_restant = test;
+
+      }
+    });
+
+    notifyListeners();
   }
   }

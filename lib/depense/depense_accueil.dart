@@ -1,3 +1,4 @@
+import 'package:budgetflutter/depense/AddDepense.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -108,7 +109,12 @@ class depense_accueil extends StatelessWidget{
                         backgroundColor: MaterialStateProperty.all<Color>(
                             Color.fromRGBO(23, 84, 25, 1.0)),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AddDepense()),
+                        );
+                      },
                       child: Text(
                         'Depenser',
                         style: TextStyle(
@@ -141,7 +147,7 @@ class Total extends StatelessWidget {
         builder: (context, Montant, child) {
        return Container(
       padding: EdgeInsets.only(top: 15),
-      child: Text('${Montant.montant}'+ "fcfa",
+      child: Text('${Montant.formatMontant(Montant.montant)} ',
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 24,

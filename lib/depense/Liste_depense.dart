@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../pages/ajout_budget.dart';
+import 'AddDepense.dart';
 import 'MontantModel.dart';
 
 class Liste_depense extends StatelessWidget{
@@ -89,7 +90,12 @@ class Liste_depense extends StatelessWidget{
                       backgroundColor: MaterialStateProperty.all<Color>(
                       Color.fromRGBO(23, 84, 25, 1.0)),
                       ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddDepense()),
+                  );
+                },
                       child: Text(
                 'Depenser',
                 style: TextStyle(
@@ -117,7 +123,7 @@ class Total extends StatelessWidget {
         builder: (context, Montant, child) {
           return Container(
             padding: EdgeInsets.only(top: 15),
-            child: Text('${Montant.montantcat}'+ "fcfa",
+            child: Text('${Montant.formatMontant(Montant.montantcat) } ',
               style: TextStyle(
                 fontFamily: 'Poppins',
                 fontSize: 24,
@@ -128,8 +134,6 @@ class Total extends StatelessWidget {
     );
   }
 }
-
-
 
 
 class CustomCard extends StatelessWidget {
@@ -163,6 +167,7 @@ class CustomCard extends StatelessWidget {
                       children: [
 
                         Text(
+
                           depense.montant.toString()+" Fcfa",
                           style: TextStyle(
                             fontSize: 18.0,
@@ -185,14 +190,27 @@ class CustomCard extends StatelessWidget {
 
           // Troisième colonne avec le bouton d'options (les trois points verticaux)
             PopupMenuButton<String>(
+              elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
               itemBuilder: (context) {return [
+                PopupMenuItem<String>(
+                  height: 10,
+                  value: 'close', // Élément spécial pour fermer le menu
+                  child: Align(
+                    alignment: Alignment(1.0, 0),
+                    child: Icon(Icons.cancel,color :Color.fromRGBO(23, 84, 25, 1.0),),
+                  ), // Vous pouvez utiliser une icône à la place
+                ),
                 PopupMenuItem(
+                  height: 10,
                 value: 'detail',
                   child: Row(
                     children: [
-                      Icon(Icons.info),
+                      Icon(IconData(0xf424, fontFamily: CupertinoIcons.iconFont, fontPackage: CupertinoIcons.iconFontPackage),color :Color.fromRGBO(23, 84, 25, 1.0),),
                       SizedBox(width: 8.0),
-                      Text('Détail'),
+                      Text('Détails',style:TextStyle(color :Color.fromRGBO(23, 84, 25, 1.0),),),
                 ],
                 ),
               ),
@@ -200,32 +218,183 @@ class CustomCard extends StatelessWidget {
                   value: 'modifier',
                   child: Row(
                     children: [
-                    Icon(Icons.edit),
+                    Icon(Icons.edit,color :Color.fromRGBO(23, 84, 25, 1.0),),
                     SizedBox(width: 8.0),
-                    Text('Modifier'),
+                    Text('Modifier',style: TextStyle(color :Color.fromRGBO(23, 84, 25, 1.0),),),
           ],
           ),
           ),
                 PopupMenuItem(
-                value: 'supprimer',
+                  height: 10,
+                  value: 'supprimer',
                   child: Row(
                   children: [
-                    Icon(Icons.delete),
+                    Icon(Icons.delete,color: Colors.red,),
                       SizedBox(width: 8.0),
-                      Text('Supprimer'),
+                      Text('Supprimer',style: TextStyle(color: Colors.red),),
+
           ],
           ),
           ),
+
           ];
           },
           onSelected: (value) {
           // Code à exécuter en fonction de l'option sélectionnée
           if (value == 'detail') {
+
+            showDialog(
+              context: context,
+
+              // Le contexte du widget parent
+              builder: (BuildContext context) {
+
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  title: Align(
+                    alignment: Alignment(1.0, 0),
+                    child:     TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Ferme la boîte de dialogue
+                      },
+                      child: Icon(Icons.cancel,color :Color.fromRGBO(23, 84, 25, 1.0),),
+                    ),
+                  ),
+                  titlePadding: EdgeInsetsDirectional.only(end: 0,bottom: 0.2),
+                  content: Container(
+                    child:Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Text("Montant : " ,style: TextStyle(fontFamily: 'Poppins',fontWeight: FontWeight.bold ),),
+                            Text(" ${depense.montant} fcfa",style: TextStyle(fontFamily: 'Poppins',color :Color.fromRGBO(23, 84, 25, 1.0)),)
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text("Description : " ,style: TextStyle(fontFamily: 'Poppins',fontWeight: FontWeight.bold ),),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text("${depense.description}",style: TextStyle(fontFamily: 'Poppins',fontWeight: FontWeight.normal))
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text("Date : " ,style: TextStyle(fontFamily: 'Poppins',fontWeight: FontWeight.bold ),),
+                            Text(" ${depense.date.day}/${depense.date.month}/${depense.date.year} ",style: TextStyle(fontFamily: 'Poppins'),)
+                          ],
+                        )
+                      ],
+                    )
+                  ),
+
+
+
+                );
+              },
+            );
           // Action de détail
           } else if (value == 'modifier') {
           // Action de modification
           } else if (value == 'supprimer') {
+            showDialog(
+              context: context,
+
+              // Le contexte du widget parent
+              builder: (BuildContext context) {
+
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  title: Align(
+                    alignment: Alignment(1.0, 0),
+                    child:     TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Ferme la boîte de dialogue
+                      },
+                      child: Icon(Icons.cancel,color :Color.fromRGBO(23, 84, 25, 1.0),),
+                    ),
+                  ),
+                  titlePadding: EdgeInsetsDirectional.only(end: 0,bottom: 0.2),
+                  content: Align(
+                      heightFactor: 0.5,
+                    alignment: Alignment.center,
+                      child: Text("Voulez-vous spprimer ?" ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),)
+                  ),
+                  actions: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                              minimumSize: MaterialStateProperty.all<Size>(Size(32, 32)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Color.fromRGBO(23, 84, 25, 1.0)),
+                            ),
+                            onPressed: () async {
+
+                              final montantmodel = context.read<MontantModel>();
+                              await montantmodel.deleted(depense);
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              'Oui',
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 16.0),
+                          TextButton(
+
+                            style: ButtonStyle(
+
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                              minimumSize: MaterialStateProperty.all<Size>(Size(32, 32)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Color.fromRGBO(206, 114, 13, 1.0)),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              'Non',
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                        ,
+
+                    )
+
+
+                  ],
+
+
+
+                );
+              },
+            );
           // Action de suppression
+          }
+          else if(value == 'fermer'){
+
           }
           },
           ),
