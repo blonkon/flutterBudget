@@ -1,5 +1,7 @@
 import 'package:budgetflutter/pages/ConnexionPage.dart';
+import 'package:budgetflutter/pages/accueil.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -374,6 +376,9 @@ class _LoginState extends State<InscriptionPage> {
                         ),
                       ),
                       TextSpan(
+                         recognizer: TapGestureRecognizer( )
+                        ..onTap = () {Navigator.push(context, MaterialPageRoute(builder: (context)=>  ConnexionPage()));},
+              
                         text: 'Se connecter',
                         style: TextStyle(
                           color: Colors.blue,

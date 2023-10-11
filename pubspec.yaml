@@ -45,6 +45,7 @@ dependencies:
 
 
   fl_chart: ^0.64.0
+  gestures: ^1.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,7 @@
+import 'package:budgetflutter/pages/InscriptionPage.dart';
 import 'package:budgetflutter/pages/accueil.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import '../services/userService.dart';
@@ -275,7 +277,7 @@ class _LoginState extends State<ConnexionPage> {
                 child: RichText(
                   text: TextSpan(
                     // style: DefaultTextStyle.of(context).style,
-                    children: [
+                    children:  [
                       
                       TextSpan(
                         text: 'Vous n avez pas de  compte ? ',
@@ -284,8 +286,10 @@ class _LoginState extends State<ConnexionPage> {
                           fontSize: 14.0,
                         ),
                       ),
-                      TextSpan(
-                        
+                       TextSpan(
+                        recognizer: TapGestureRecognizer( )
+                        ..onTap = () {Navigator.push(context, MaterialPageRoute(builder: (context)=> const InscriptionPage()));},
+              
                         text: 'Inscrivez vous',
                         
                         style: TextStyle(
