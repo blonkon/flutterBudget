@@ -21,7 +21,7 @@ class MyAppss extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  // Action à effectuer lorsque le bouton de retour est appuyé
+                  Navigator.pop(context);
                 },
                 child: Container(
                   width: 36, // Largeur du conteneur
@@ -83,7 +83,7 @@ class MyAppss extends StatelessWidget {
           },
           elevation: 0,
           child: Center(
-            child: Image.asset('assets/images/back.png'),
+            child: Image.asset('assets/images/ajout.png'),
           ),
           // Vous pouvez utiliser une autre icône ou une image à la place
         ),
@@ -242,8 +242,8 @@ class CustomCard extends StatelessWidget {
         child: Row(
           children: [
             // Première colonne avec une image (vous pouvez garder cette partie)
-            Image.asset('assets/iconalimentation.png'),
-            // Icon(icon)
+            Image.asset('assets/images/iconalimentation.png'),
+
             // Deuxième colonne contenant le texte (utilisez les données du budget)
             Expanded(
               child: Column(
