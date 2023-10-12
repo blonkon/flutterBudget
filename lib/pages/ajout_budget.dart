@@ -54,7 +54,7 @@ class ajout_budget extends StatelessWidget {
               Card(
                 elevation: 0,
                 child: Image.asset(
-                  'assets/portefeuille.png',
+                  'assets/images/portefeuille.png',
                   width: 85,
                 ),
                 margin: EdgeInsets.only(top: 10),
@@ -81,7 +81,7 @@ class _BudgetFormState extends State<BudgetForm> {
   TextEditingController _dateDebutController = TextEditingController();
   TextEditingController _montantAlerteController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
-  DateTime _selectedDate= DateTime.now();
+  DateTime _selectedDate = DateTime.now();
 
   List<String> categories = [
     'Alimentation',
@@ -151,7 +151,6 @@ class _BudgetFormState extends State<BudgetForm> {
               },
             ),
             SizedBox(height: 16.0),
-
 
             // Champ 'Date de début'
             TextFormField(
@@ -232,6 +231,7 @@ class _BudgetFormState extends State<BudgetForm> {
       ),
     );
   }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -242,7 +242,8 @@ class _BudgetFormState extends State<BudgetForm> {
     if (picked != null && picked != _selectedDate)
       setState(() {
         _selectedDate = picked;
-        _dateDebutController.text = _selectedDate.toString(); // Mettez à jour le champ de texte avec la date sélectionnée
+        _dateDebutController.text = _selectedDate
+            .toString(); // Mettez à jour le champ de texte avec la date sélectionnée
       });
   }
 
@@ -257,15 +258,15 @@ class _BudgetFormState extends State<BudgetForm> {
               children: categories
                   .map(
                     (category) => ListTile(
-                  title: Text(category),
-                  onTap: () {
-                    setState(() {
-                      selectedCategory = category;
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
-              )
+                      title: Text(category),
+                      onTap: () {
+                        setState(() {
+                          selectedCategory = category;
+                        });
+                        Navigator.pop(context);
+                      },
+                    ),
+                  )
                   .toList(),
             ),
           ),
