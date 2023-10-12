@@ -86,6 +86,10 @@ flutter:
     - assets/home.png
     - assets/sport.png
     - assets/momey.png
+    - assets/type.png
+    - assets/date.png
+    - assets/categoriefordepense.png
+    - assets/button.png
   #   - images/a_dot_ham.jpeg
 
 

@@ -72,16 +72,17 @@ class _LoginState extends State<AddDepense> {
               child: Image.asset("assets/pocket2.png")
           ),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
               child: Form(
                 key: _formkey,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           keyboardType : TextInputType.number,
+                          cursorColor: mycolors,
                           style: TextStyle(fontSize: 14.0),  // Adjust the font size here
                           validator: MultiValidator([
                             RequiredValidator(errorText: 'Montant Incorrect'),
@@ -94,122 +95,213 @@ class _LoginState extends State<AddDepense> {
                             labelText: 'Montant',
                             prefixIcon: Image.asset(
                               'assets/momey.png', // Remplacez 'votre_image.png' par le chemin de votre image dans le dossier assets
-                              width: 24, // Ajustez la largeur de l'image
-                              height: 24, // Ajustez la hauteur de l'image
+                               // Ajustez la hauteur de l'image
                             ),
                             errorStyle: TextStyle(fontSize: 12.0),  // Adjust the error text font size
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                             // Texte de l'étiquette
+
+                            errorBorder: OutlineInputBorder(
+                               // Définir la forme des coins
+                              borderSide: BorderSide(
+                                color: Colors.white, // Couleur de la bordure d'erreur
+                                width: 2.0, // Largeur de la bordure d'erreur
+                              ),
                             ),
-                            contentPadding: EdgeInsets.all(10.0),
+                            focusedErrorBorder: OutlineInputBorder(
+
+                              borderSide: BorderSide(
+                                color: mycolors, // Couleur de la bordure après une erreur en focus
+                                width: 2.0, // Largeur de la bordure après une erreur en focus
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                // Bordure lorsqu'elle est en focus
+
+                                borderSide: BorderSide(
+                                  color: mycolors, // Couleur de la bordure en focus
+                                  width: 2.0, // Largeur de la bordure en focus
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                // Bordure en dehors du focus
+
+                                borderSide: BorderSide(
+                                  color: Colors.white, // Couleur de la bordure en dehors du focus
+                                  width: 2.0, // Largeur de la bordure en dehors du focus
+                                ),
+                              ),
+                            contentPadding: EdgeInsets.all(22),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: TextFormField(
-                          style: TextStyle(fontSize: 14.0),
-                          validator: MultiValidator([
-                            RequiredValidator(
-                                errorText: 'Enter email address'),
-                            EmailValidator(
-                                errorText:
-                                'Please correct email filled'),
-                          ]),
-                          decoration: const InputDecoration(
-                            hintText: 'Email',
-                            labelText: 'Entrez votre email',
-                            prefixIcon: Icon(
-                              Icons.email,
-                              color: Color(0xFF175419),
+                      GestureDetector(
+                        onTap: () {
+                          // Afficher une boîte de dialogue lorsque l'utilisateur clique sur le champ
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Modifier la valeur'),
+                                content: Text('Contenu de la boîte de dialogue'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // Fermer la boîte de dialogue
+                                    },
+                                    child: Text('Fermer'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8) ,
+                          child: TextFormField(
+                            enabled: false, // Désactiver la saisie
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Categories",
+                              fillColor: Colors.grey,
+                              prefixIcon: Image.asset("assets/categoriefordepense.png"),
+                              border: InputBorder.none,
+                              suffixIcon: Image.asset("assets/button.png"), // Vous pouvez personnaliser l'icône d'édition
                             ),
-                            errorStyle: TextStyle(fontSize: 12.0),  // Adjust the error text font size
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.all(Radius.circular(9.0)),
-                            ),
-                            contentPadding: EdgeInsets.all(10.0),
                           ),
+
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // Afficher une boîte de dialogue lorsque l'utilisateur clique sur le champ
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Modifier la valeur'),
+                                content: Text('Contenu de la boîte type'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // Fermer la boîte de dialogue
+                                    },
+                                    child: Text('Fermer'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8) ,
+                          child: TextFormField(
+                            enabled: false, // Désactiver la saisie
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Types",
+                              fillColor: Colors.grey,
+                              prefixIcon: Image.asset("assets/type.png"),
+                              border: InputBorder.none,
+                              suffixIcon: Image.asset("assets/button.png"), // Vous pouvez personnaliser l'icône d'édition
+                            ),
+                          ),
+
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          style: TextStyle(fontSize: 14.0),
+                          keyboardType : TextInputType.number,
+                          cursorColor: mycolors,
+                          style: TextStyle(fontSize: 14.0),  // Adjust the font size here
                           validator: MultiValidator([
-                            RequiredValidator(
-                                errorText: 'Enter email address'),
-                            EmailValidator(
-                                errorText:
-                                'Please correct email filled'),
+                            RequiredValidator(errorText: 'Date Incorrect'),
+
                           ]),
-                          decoration: const InputDecoration(
-                            hintText: 'Email',
-                            labelText: 'Entrez votre email',
-                            prefixIcon: Icon(
-                              Icons.email,
-                              color: Color(0xFF175419),
+                          decoration: InputDecoration(
+                            filled: true, // Activez le remplissage du fond
+                            fillColor: Colors.grey,
+                            hintText: 'Date',
+                            labelText: 'Date',
+                            prefixIcon: Image.asset(
+                              'assets/date.png', // Remplacez 'votre_image.png' par le chemin de votre image dans le dossier assets
+                              // Ajustez la hauteur de l'image
                             ),
                             errorStyle: TextStyle(fontSize: 12.0),  // Adjust the error text font size
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                            // Texte de l'étiquette
+
+                            errorBorder: OutlineInputBorder(
+                              // Définir la forme des coins
+                              borderSide: BorderSide(
+                                color: Colors.white, // Couleur de la bordure d'erreur
+                                width: 2.0, // Largeur de la bordure d'erreur
+                              ),
                             ),
-                            contentPadding: EdgeInsets.all(10.0),
+                            focusedErrorBorder: OutlineInputBorder(
+
+                              borderSide: BorderSide(
+                                color: mycolors, // Couleur de la bordure après une erreur en focus
+                                width: 2.0, // Largeur de la bordure après une erreur en focus
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              // Bordure lorsqu'elle est en focus
+
+                              borderSide: BorderSide(
+                                color: mycolors, // Couleur de la bordure en focus
+                                width: 2.0, // Largeur de la bordure en focus
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              // Bordure en dehors du focus
+
+                              borderSide: BorderSide(
+                                color: Colors.white, // Couleur de la bordure en dehors du focus
+                                width: 2.0, // Largeur de la bordure en dehors du focus
+                              ),
+                            ),
+                            contentPadding: EdgeInsets.all(22),
                           ),
                         ),
                       ),
+                      Align(
+                        alignment: Alignment(-0.9, 0),
+                        child: Text("Description",style: TextStyle(color: mycolors),),
+                      )
+                      ,
                       Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
-                          style: TextStyle(fontSize: 14.0),
-                          validator: MultiValidator([
-                            RequiredValidator(
-                                errorText: 'Enter email address'),
-                            EmailValidator(
-                                errorText:
-                                'Please correct email filled'),
-                          ]),
-                          decoration: const InputDecoration(
-                            hintText: 'Email',
-                            labelText: 'Entrez votre email',
-                            prefixIcon: Icon(
-                              Icons.email,
-                              color: Color(0xFF175419),
+                          cursorColor: mycolors,
+                          style: TextStyle(fontSize: 14.0),  // Adjust the font size here
+                          decoration: InputDecoration(
+                            filled: true, // Activez le remplissage du fond
+                            fillColor: Colors.grey,
+
+                            focusedErrorBorder: OutlineInputBorder(
+
+                              borderSide: BorderSide(
+                                color: mycolors, // Couleur de la bordure après une erreur en focus
+                                width: 2.0, // Largeur de la bordure après une erreur en focus
+                              ),
                             ),
-                            errorStyle: TextStyle(fontSize: 12.0),  // Adjust the error text font size
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                            focusedBorder: OutlineInputBorder(
+                              // Bordure lorsqu'elle est en focus
+
+                              borderSide: BorderSide(
+                                color: mycolors, // Couleur de la bordure en focus
+                                width: 2.0, // Largeur de la bordure en focus
+                              ),
                             ),
-                            contentPadding: EdgeInsets.all(10.0),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: TextFormField(
-                          style: TextStyle(fontSize: 14.0),
-                          validator: MultiValidator([
-                            RequiredValidator(
-                                errorText: 'Enter email address'),
-                            EmailValidator(
-                                errorText:
-                                'Please correct email filled'),
-                          ]),
-                          decoration: const InputDecoration(
-                            hintText: 'Email',
-                            labelText: 'Entrez votre email',
-                            prefixIcon: Icon(
-                              Icons.email,
-                              color: Color(0xFF175419),
+                            enabledBorder: OutlineInputBorder(
+                              // Bordure en dehors du focus
+
+                              borderSide: BorderSide(
+                                color: Colors.white, // Couleur de la bordure en dehors du focus
+                                width: 2.0, // Largeur de la bordure en dehors du focus
+                              ),
                             ),
-                            errorStyle: TextStyle(fontSize: 12.0),  // Adjust the error text font size
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.all(Radius.circular(9.0)),
-                            ),
-                            contentPadding: EdgeInsets.all(10.0),
+                            contentPadding: EdgeInsets.only(top :2,bottom: 100),
                           ),
                         ),
                       ),
