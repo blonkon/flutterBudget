@@ -1,3 +1,5 @@
+import 'package:budgetflutter/pages/ConnexionPage.dart';
+import 'package:budgetflutter/pages/InscriptionPage.dart';
 import 'dart:convert';
 import 'dart:ffi';
 
@@ -58,7 +60,7 @@ class _accueilState extends State<accueil> {
   final List<Widget> _pages = [
     const home(),
     alerte(),
-    const HomePage(),
+    const statistique(),
   ];
 
   void _chnagerPage(int index) {
