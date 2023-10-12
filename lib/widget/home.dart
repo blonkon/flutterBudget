@@ -18,12 +18,12 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-  late Future<Budget> futureBudget;
+  late Future futureBudget;
 
   @override
   void initState() {
     super.initState();
-    futureBudget = BudgetService().budget();
+    futureBudget = BudgetService().recupereList();
   }
 
   List imgData = [
@@ -31,8 +31,6 @@ class _homeState extends State<home> {
     "assets/images/2.png",
     "assets/images/3.png",
     "assets/images/4.png",
-    "assets/images/5.png",
-    "assets/images/6.png",
   ];
 
   List<String> titles = [
@@ -40,8 +38,6 @@ class _homeState extends State<home> {
     "Depense",
     "Categorie",
     "Historique",
-    "Alerte",
-    "Statistique",
   ];
 
   List card = [
@@ -128,7 +124,7 @@ class _homeState extends State<home> {
                       ),
                     ),
                   ),
-                  FutureBuilder<Budget>(
+                  FutureBuilder(
                     future: futureBudget,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -136,7 +132,7 @@ class _homeState extends State<home> {
                         return Padding(
                           padding: EdgeInsets.only(bottom: 25.0, right: 1),
                           child: Text(
-                            "${snapshot.data!.montant} f",
+                            "${snapshot.data} f",
                             style: const TextStyle(
                               color: const Color(0xFF175419),
                               fontSize: 18,
@@ -171,7 +167,7 @@ class _homeState extends State<home> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(top: 100, left: 40, right: 40),
+            margin: EdgeInsets.only(top: 90, bottom: 30, left: 40, right: 40),
             child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -195,14 +191,14 @@ class _homeState extends State<home> {
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
+                          vertical: 20, horizontal: 20),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.white,
                           boxShadow: const [
                             BoxShadow(
                               color: Color.fromARGB(255, 227, 247, 227),
-                              spreadRadius: 1,
+                              spreadRadius: 6,
                               blurRadius: 6,
                             )
                           ]),
@@ -218,7 +214,7 @@ class _homeState extends State<home> {
                             // overflow: TextOverflow.visible,
                             style: const TextStyle(
                               color: Color.fromARGB(255, 41, 39, 39),
-                              fontSize: 18,
+                              fontSize: 14,
                             ),
                           ),
                         ],

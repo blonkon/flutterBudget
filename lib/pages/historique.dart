@@ -10,27 +10,20 @@ class historique extends StatefulWidget {
 }
 
 class _historiqueState extends State<historique> {
-  
+  // late Future futureDepense;
 
   @override
   void initState() {
     super.initState();
-    
+    // futureDepense = HistoriqueService().deleteDepense();
   }
 
   String? mois;
+
   final depenses = [
-    {
-      "categorie": "Alimentaire",
-      "date": "30 sept. 2023",
-      "icon": "Alimentaire"
-    },
-    {"categorie": "Loyer", "date": "30 sept. 2023", "icon": "iconLoyer"},
-    {"categorie": "Transport", "date": "30 sept. 2023", "icon": "transport"},
-    {"categorie": "Transport", "date": "30 sept. 2023", "icon": "transport"},
-    {"categorie": "Transport", "date": "30 sept. 2023", "icon": "transport"},
-    {"categorie": "Transport", "date": "30 sept. 2023", "icon": "transport"},
+    {"categorie": "Loyer", "icon": "Alimentaire"},
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,17 +69,22 @@ class _historiqueState extends State<historique> {
                   value: mois,
                   onChanged: (String? moisSelectionner) {
                     setState(() {
-                      mois = moisSelectionner ?? 'Selectionner un mois';
+                      mois = moisSelectionner ?? "Selectionner un mois";
                     });
                   },
                   items: [
-                    'Jan',
-                    'Fev',
+                    'Janvier',
+                    'Fevrier',
                     'Mars',
                     'Avril',
                     'Mai',
-                    'Jun',
-                    'Jui',
+                    'Juin',
+                    'Juillet',
+                    'Aout',
+                    'Septembre',
+                    'Octobre',
+                    'Novembre',
+                    'Decembre'
                   ]
                       .map((String value) => DropdownMenuItem<String>(
                             value: value,
@@ -100,32 +98,77 @@ class _historiqueState extends State<historique> {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.only(top: 40),
-                  child: FutureBuilder<List<Depense>>(
-                    future: HistoriqueService().allDepense(),
-                    builder: (context, snapshot) {
+                margin: EdgeInsets.only(top: 40),
+                child: FutureBuilder<List<Depense>>(
+                  future: HistoriqueService().list(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Erreur de chargement des données');
+                    } else if (snapshot.data == null ||
+                        snapshot.data!.isEmpty) {
+                      return Text('Aucune dépense disponible');
+                    } else {
                       return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: depenses.length,
-                          itemBuilder: (context, index) {
-                            final depense = depenses[index];
-                            final icon = depense['icon'];
-                            return Card(
-                              child: ListTile(
-                                leading: Image.asset("assets/images/$icon.png"),
-                                title: Text(
-                                    "${snapshot.data![index].description}"),
-                                subtitle: Text("${snapshot.data![index].date}"),
-                                trailing: const Icon(
-                                  Icons.delete,
-                                  color: Color.fromARGB(255, 173, 27,
-                                      1), // Changer la couleur de l'icône de retour ici
-                                ),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!
+                            .length, // Utilisez la longueur des données dans le snapshot
+                        itemBuilder: (context, index) {
+                          final depenseObject = snapshot.data![index];
+                          // final icon = depense['icon']; // Assurez-vous que 'icon' est un champ valide dans votre objet Depense
+                          return Card(
+                            child: ListTile(
+                              leading:
+                                  Image.asset("assets/images/historique.png"),
+                              title: Text("${depenseObject.montant}"),
+                              subtitle: Text("${depenseObject.date}"),
+                              trailing: IconButton(
+                                icon: Icon(Icons.delete),
+                                color: Color.fromARGB(255, 173, 27, 1),
+                                onPressed: () {
+                                  // Afficher la boîte de dialogue de confirmation
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Confirmation'),
+                                        content: Text(
+                                            'Êtes-vous sûr de vouloir supprimer cette dépense ?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: Text('Annuler'),
+                                            onPressed: () {
+                                              // Fermer la boîte de dialogue
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                          TextButton(
+                                            child: Text('Supprimer'),
+                                            onPressed: () {
+                                              // Supprimer la dépense et fermer la boîte de dialogue
+                                              setState(() {
+                                                HistoriqueService()
+                                                    .deleteDepense(depenseObject
+                                                        .idDepense!);
+                                              });
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
                               ),
-                            );
-                          });
-                    },
-                  )),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
+              ),
               Container(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(

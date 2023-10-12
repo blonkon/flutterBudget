@@ -206,17 +206,36 @@ class _categorieState extends State<categorie> {
                         child: ListTile(
                           leading: Image.asset("assets/images/$icon.png"),
                           title: Text('${categorieList[index]["nom"]}'),
-                          subtitle:
-                              Text('${categorieList[index]["idCategory"]}'),
-                          trailing: IconButton(
-                            icon: const Icon(
-                              Icons.more_vert,
-                              color: Color(0xFF175419),
-                            ),
-                            onPressed: () {
-                              // Ouvrir le popup après avoir cliqué sur l'icône
-                              _showOptionsPopup(context);
+                          trailing: PopupMenuButton<String>(
+                            onSelected: (value) {
+                              // Action à effectuer lorsque l'option du menu est sélectionnée
+                              if (value == 'edit') {
+                                // Mettez ici le code pour l'édition
+                                print('Option d\'édition sélectionnée');
+                              } else if (value == 'delete') {
+                                // Mettez ici le code pour la suppression
+                                print('Option de suppression sélectionnée');
+                              }
                             },
+                            itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry<String>>[
+                              const PopupMenuItem<String>(
+                                value: 'edit',
+                                child: ListTile(
+                                  leading:
+                                      Icon(Icons.edit, color: Colors.amber),
+                                  title: Text('Éditer'),
+                                ),
+                              ),
+                              const PopupMenuItem<String>(
+                                value: 'delete',
+                                child: ListTile(
+                                  leading:
+                                      Icon(Icons.delete, color: Colors.red),
+                                  title: Text('Supprimer'),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );
