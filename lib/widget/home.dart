@@ -1,5 +1,7 @@
+import 'package:budgetflutter/depense/depense_accueil.dart';
 import 'package:budgetflutter/model/budget.dart';
 import 'package:budgetflutter/pages/budget.dart';
+import 'package:budgetflutter/pages/budgets.dart';
 import 'package:budgetflutter/pages/categorie.dart';
 import 'package:budgetflutter/pages/depense.dart';
 import 'package:budgetflutter/pages/historique.dart';
@@ -43,8 +45,8 @@ class _homeState extends State<home> {
   ];
 
   List card = [
-    budget(),
-    depense(),
+    MyAppss(),
+    depense_accueil(),
     categorie(),
     historique(),
   ];
@@ -126,7 +128,6 @@ class _homeState extends State<home> {
                       ),
                     ),
                   ),
-
                   FutureBuilder<Budget>(
                     future: futureBudget,
                     builder: (context, snapshot) {
@@ -151,9 +152,8 @@ class _homeState extends State<home> {
                       // By default, show a loading spinner.
                       return const CircularProgressIndicator();
                     },
-                  )
-
-                  // Padding(
+                  ),
+                  // const Padding(
                   //   padding: EdgeInsets.only(bottom: 25.0, right: 1),
                   //   child: Text(
                   //     "140.000 f",

@@ -12,6 +12,7 @@ class HistoriqueService {
     if (response.statusCode == 200) {
       final List result = jsonDecode(response.body);
       return result.map((e) => Depense.fromJson(e)).toList();
+      
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.

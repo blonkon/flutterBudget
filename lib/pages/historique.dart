@@ -10,12 +10,12 @@ class historique extends StatefulWidget {
 }
 
 class _historiqueState extends State<historique> {
-  // late Future<Depense> futureDepense;
+  
 
   @override
   void initState() {
     super.initState();
-    // futureDepense = HistoriqueService().allDepense as Future<Depense>;
+    
   }
 
   String? mois;
