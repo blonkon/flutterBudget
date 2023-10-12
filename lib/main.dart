@@ -1,6 +1,7 @@
 import 'package:budgetflutter/Basebox.dart';
 import 'package:budgetflutter/depense/MaBaseDeDonnees.dart';
 import 'package:budgetflutter/depense/depense_accueil.dart';
+import 'package:budgetflutter/pages/ConnexionPage.dart';
 import 'package:budgetflutter/pages/accueil.dart';
 import 'package:budgetflutter/pages/budget.dart';
 import 'package:budgetflutter/pages/categorie.dart';
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: const accueil(),
+      home: ConnexionPage(),
     );
   }
 }
