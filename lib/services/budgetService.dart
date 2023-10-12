@@ -5,14 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class BudgetService {
-  Future<Budget> budget() async {
-    final response = await http
-        .get(Uri.parse('http://10.0.2.2:8083/budget/lire?idBudget=1'));
+  
+  List<Budget> listsBudget = [];
+  int sommeTotal = 0;
+
+  Future<int> recupereList() async {
+    
+    final response =
+        await http.get(Uri.parse('http://10.0.2.2:8083/budget/afficher'));
 
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      return Budget.fromJson(jsonDecode(response.body));
+      List result = jsonDecode(response.body);
+      listsBudget = result.map((e) => Budget.fromJson(e)).toList();
+      listsBudget.forEach((element) {
+        sommeTotal = sommeTotal + element.montantRestant!;
+      });
+      print(sommeTotal);
+      return sommeTotal;
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
