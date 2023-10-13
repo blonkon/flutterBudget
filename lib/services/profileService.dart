@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:budgetflutter/model/profile.dart';
 import 'package:http/http.dart' as http;
 
-class profilService {
+class ProfilService {
 
 Future<User> fetchUser() async {
   final response = await http.get(Uri.parse('http://10.0.2.2:8080/utilisateur/read/:id'));
