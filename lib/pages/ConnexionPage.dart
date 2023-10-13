@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import '../services/userService.dart';
+
 class ConnexionPage extends StatefulWidget {
   const ConnexionPage({Key? key}) : super(key: key);
 
@@ -23,7 +24,6 @@ class _LoginState extends State<ConnexionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         title: Text(
           'Connexion',
           style: TextStyle(
@@ -47,9 +47,8 @@ class _LoginState extends State<ConnexionPage> {
                 ),
               ),
             ),
-
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
               child: Container(
                   margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(12.0),
@@ -73,8 +72,10 @@ class _LoginState extends State<ConnexionPage> {
                           Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Container(
-                              width: 350,  // Adjust the width of the container here
-                              height: 50,  // Adjust the height of the container here
+                              width:
+                                  350, // Adjust the width of the container here
+                              height:
+                                  50, // Adjust the height of the container here
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(9.0),
                                 boxShadow: [
@@ -93,8 +94,7 @@ class _LoginState extends State<ConnexionPage> {
                                   RequiredValidator(
                                       errorText: 'Enter email address'),
                                   EmailValidator(
-                                      errorText:
-                                      'Please correct email filled'),
+                                      errorText: 'Please correct email filled'),
                                 ]),
                                 decoration: const InputDecoration(
                                   hintText: 'Email',
@@ -103,10 +103,13 @@ class _LoginState extends State<ConnexionPage> {
                                     Icons.email,
                                     color: Color(0xFF175419),
                                   ),
-                                  errorStyle: TextStyle(fontSize: 12.0),  // Adjust the error text font size
+                                  errorStyle: TextStyle(
+                                      fontSize:
+                                          12.0), // Adjust the error text font size
                                   border: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.red),
-                                    borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(9.0)),
                                   ),
                                   contentPadding: EdgeInsets.all(10.0),
                                 ),
@@ -116,8 +119,10 @@ class _LoginState extends State<ConnexionPage> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
-                              width: 350,  // Adjust the width of the container here
-                              height: 50,  // Adjust the height of the container here
+                              width:
+                                  350, // Adjust the width of the container here
+                              height:
+                                  50, // Adjust the height of the container here
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(9.0),
                                 boxShadow: [
@@ -132,15 +137,15 @@ class _LoginState extends State<ConnexionPage> {
                               child: TextFormField(
                                 controller: _passwordController,
                                 style: TextStyle(fontSize: 14.0),
-                              // validator: MultiValidator([
+                                // validator: MultiValidator([
                                 //  RequiredValidator(
-                                  //    errorText: 'Desolé entrez votre mots de passe'),
-                                 // MinLengthValidator(8,
-                                   //   errorText:
-                                     // 'le mots de passe doit contenir au moins 8 caracteres'),
-                                 // PatternValidator(r'(?=.*?[#!@$%^&*-])',
-                                   //   errorText:
-                                     // 'le mots de passe doit contenir au moins un caractere')
+                                //    errorText: 'Desolé entrez votre mots de passe'),
+                                // MinLengthValidator(8,
+                                //   errorText:
+                                // 'le mots de passe doit contenir au moins 8 caracteres'),
+                                // PatternValidator(r'(?=.*?[#!@$%^&*-])',
+                                //   errorText:
+                                // 'le mots de passe doit contenir au moins un caractere')
                                 //]),
                                 decoration: const InputDecoration(
                                   hintText: 'Mots de passe',
@@ -149,10 +154,13 @@ class _LoginState extends State<ConnexionPage> {
                                     Icons.lock,
                                     color: Color(0xFF175419),
                                   ),
-                                  errorStyle: TextStyle(fontSize: 12.0),  // Adjust the error text font size
+                                  errorStyle: TextStyle(
+                                      fontSize:
+                                          12.0), // Adjust the error text font size
                                   border: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.red),
-                                    borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(9.0)),
                                   ),
                                   contentPadding: EdgeInsets.all(10.0),
                                 ),
@@ -171,33 +179,54 @@ class _LoginState extends State<ConnexionPage> {
                               height: 50,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: mycolors, // Couleur de fond du bouton
-                                  onPrimary: Colors.white, // Couleur du texte du bouton
+                                  primary:
+                                      mycolors, // Couleur de fond du bouton
+                                  onPrimary: Colors
+                                      .white, // Couleur du texte du bouton
                                 ),
-                                onPressed: () {
-                                  Service.loginUser(
-                                      _emailController.text,
-                                      _passwordController.text);
-                                  _emailController.clear();
-                                  _passwordController.clear();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => accueil()),
-                                  );
-                                },
+                                  onPressed: () async {
+                                        try {
+                                          // Appeler la méthode loginUser du service
+                                          await Service.loginUser(_emailController.text, _passwordController.text);
+
+                                          // Effacer les champs de texte
+                                          // _emailController.clear();
+                                          // _passwordController.clear();
+
+                                          // Naviguer vers la page d'accueil
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => accueil()),
+                                          );
+                                        } catch (e) {
+                                          // Gérer les erreurs de connexion
+                                          print('Erreur de connexion : $e');
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('Erreur de connexion. Veuillez réessayer.')),
+                                          );
+                                        }
+                                      },
+                                // onPressed: () {
+                                //   Service.loginUser(_emailController.text,
+                                //       _passwordController.text);
+                                //   _emailController.clear();
+                                //   _passwordController.clear();
+                                //   Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => accueil()),
+                                //   );
+                                // },
                                 child: const Text(
                                   'Se connectez',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 22),
-
                                 ),
                               ),
                             ),
                           ),
-
                         ]),
-                  )
-              ),
+                  )),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -263,7 +292,7 @@ class _LoginState extends State<ConnexionPage> {
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(color: Colors.grey)),
                       child: Image.asset(
-                        'assets/images/linkedinpng.png',
+                        'assets/images/linked.png',
                         //fit: BoxFit.cover,
                       ),
                     ),
@@ -277,8 +306,7 @@ class _LoginState extends State<ConnexionPage> {
                 child: RichText(
                   text: TextSpan(
                     // style: DefaultTextStyle.of(context).style,
-                    children:  [
-                      
+                    children: [
                       TextSpan(
                         text: 'Vous n avez pas de  compte ? ',
                         style: TextStyle(
@@ -286,20 +314,22 @@ class _LoginState extends State<ConnexionPage> {
                           fontSize: 14.0,
                         ),
                       ),
-                       TextSpan(
-                        recognizer: TapGestureRecognizer( )
-                        ..onTap = () {Navigator.push(context, MaterialPageRoute(builder: (context)=> const InscriptionPage()));},
-              
+                      TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const InscriptionPage()));
+                          },
                         text: 'Inscrivez vous',
-                        
                         style: TextStyle(
                           color: Colors.blue,
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                         ),
-                         
                       ),
-                      
                     ],
                   ),
                 ),

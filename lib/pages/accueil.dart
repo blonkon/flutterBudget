@@ -60,7 +60,7 @@ class _accueilState extends State<accueil> {
   final List<Widget> _pages = [
     const home(),
     alerte(),
-    const statistique(),
+    const ConnexionPage(),
   ];
 
   void _chnagerPage(int index) {
