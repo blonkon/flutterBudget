@@ -7,6 +7,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'depense/MontantModel.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 Future<void> main() async {
@@ -31,9 +32,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      localizationsDelegates: <LocalizationsDelegate<Object>> [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', 'US'), // Par exemple, pour l'anglais
+        const Locale('fr', 'FR'), // Ajoutez d'autres langues ici
+      ],
       debugShowCheckedModeBanner: false,
       title: 'Flutter',
       theme: ThemeData(
+          primarySwatch: Colors.red,
         // This is the theme of your application.
         //
         // TRY THIS: Try running your application with "flutter run". You'll see
