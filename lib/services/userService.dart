@@ -29,7 +29,7 @@ class userService {
     return response;
   }
   Future<void> loginUser(String email, String password) async {
-    final apiUrl = 'http://10.0.2.2:8080/utilisateur/login';
+    const apiUrl = 'http://10.0.2.2:8080/utilisateur/login';
 
     final response = await http.post(
       Uri.parse(apiUrl),
@@ -37,6 +37,7 @@ class userService {
         'email': email,
         'motDePasse': password,
       },
+      
     );
 
     if (response.statusCode == 200) {

@@ -13,7 +13,7 @@ class HistoriqueService {
 
   Future<List<Depense>> list() async {
     final response =
-        await http.get(Uri.parse('http://10.0.2.2:8083/depense/liste'));
+        await http.get(Uri.parse('http://10.0.2.2:8080/Depenses/read'));
 
     if (response.statusCode == 200) {
       List result = jsonDecode(response.body);

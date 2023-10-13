@@ -353,7 +353,7 @@ class _LoginState extends State<InscriptionPage> {
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(color: Colors.grey)),
                         child: Image.asset(
-                          'assets/images/linkedinpng.png',
+                          'assets/images/linked.png',
                           //fit: BoxFit.cover,
                         ),
                       ),

@@ -1,18 +1,18 @@
 class Categorie {
-  int? idCategory;
-  String? nom;
+  int? idCategorie;
+  String? titre;
 
-  Categorie({this.idCategory, this.nom});
+  Categorie({this.idCategorie, this.titre});
 
   Categorie.fromJson(Map<String, dynamic> json) {
-    idCategory = json['idCategory'];
-    nom = json['nom'];
+    idCategorie = json['idCategorie'];
+    titre = json['titre'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idCategory'] = this.idCategory;
-    data['nom'] = this.nom;
+    data['idCategorie'] = this.idCategorie;
+    data['titre'] = this.titre;
     return data;
   }
 }

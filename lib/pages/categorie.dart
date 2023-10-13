@@ -20,7 +20,7 @@ class _categorieState extends State<categorie> {
   void initState() {
     super.initState();
     //pour recuperer les donnees
-    http.get(Uri.parse("http://10.0.2.2:8083/categorie/afficher")).then((resp) {
+    http.get(Uri.parse("http://10.0.2.2:8080/Categorie/lire")).then((resp) {
       // print(resp.body);
       //pour la mise a jour de affichage
       setState(() {
@@ -205,7 +205,7 @@ class _categorieState extends State<categorie> {
                       return Card(
                         child: ListTile(
                           leading: Image.asset("assets/images/$icon.png"),
-                          title: Text('${categorieList[index]["nom"]}'),
+                          title: Text('${categorieList[index]["titre"]}'),
                           trailing: PopupMenuButton<String>(
                             onSelected: (value) {
                               // Action à effectuer lorsque l'option du menu est sélectionnée
