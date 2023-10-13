@@ -31,10 +31,9 @@ class MyAppss extends StatelessWidget {
                     color: Colors.white, // Couleur du cercle
                   ),
                   child: Center(
-                    child: Image.asset(
-                      'assets/images/back.png', // Chemin vers l'image de retour
-                      width: 24, // Largeur de l'image
-                      height: 24, // Hauteur de l'image
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: d_green,
                     ),
                   ),
                 ),
@@ -60,7 +59,6 @@ class MyAppss extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    // Ajoutez le Card avec les colonnes ici
                     for (var budget in listeBudgets) CustomCard(budget: budget),
                   ],
                 ),
@@ -211,21 +209,41 @@ class _SearchBarState extends State<SearchBar> {
 
 List<BudgetModel> listeBudgets = [
   BudgetModel(
-      categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+      categorie: 'Alimentation',
+      montant: '50.000 FCFA',
+      montant_restant: '50.000 FCFA',
+      date: '30 sept. 2023',
+      description: 'ce budget est reservé pour l\'alimentation'),
   BudgetModel(
-      categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
-  BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
-  BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
-  BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
-  BudgetModel(categorie: 'Sport', montant: '30.000 FCFA', date: '10 Oct. 2023'),
+      categorie: 'Loyer',
+      montant: '40.000 FCFA',
+      montant_restant: '40.000 FCFA',
+      date: '15 sept. 2023',
+      description: 'ce budget est reservé pour le loyer'),
   BudgetModel(
-      categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+      categorie: 'Sport',
+      montant: '30.000 FCFA',
+      montant_restant: '30.000 FCFA',
+      date: '10 Oct. 2023',
+      description: 'ce budget est reservé pour le Sport'),
   BudgetModel(
-      categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
+      categorie: 'Education',
+      montant: '30.000 FCFA',
+      montant_restant: '30.000 FCFA',
+      date: '10 Oct. 2023',
+      description: 'ce budget est reservé pour l\'education'),
   BudgetModel(
-      categorie: 'Alimentation', montant: '50.000 FCFA', date: '30 sept. 2023'),
+      categorie: 'Transport',
+      montant: '20.000 FCFA',
+      montant_restant: '30.000 FCFA',
+      date: '10 Oct. 2023',
+      description: 'ce budget est reservé pour le transport'),
   BudgetModel(
-      categorie: 'Loyer', montant: '40.000 FCFA', date: '15 sept. 2023'),
+      categorie: 'Divertissement',
+      montant: '60.000 FCFA',
+      montant_restant: '30.000 FCFA',
+      date: '10 Oct. 2023',
+      description: 'ce budget est reservé pour le divertissement'),
 ];
 
 class CustomCard extends StatelessWidget {
@@ -236,7 +254,7 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
+      elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Row(
@@ -272,7 +290,7 @@ class CustomCard extends StatelessWidget {
                     value: 'detail',
                     child: Row(
                       children: [
-                        Icon(Icons.info),
+                        Icon(Icons.info, color: d_green),
                         SizedBox(width: 8.0),
                         Text('Détail'),
                       ],
@@ -282,7 +300,7 @@ class CustomCard extends StatelessWidget {
                     value: 'modifier',
                     child: Row(
                       children: [
-                        Icon(Icons.edit),
+                        Icon(Icons.edit, color: d_green),
                         SizedBox(width: 8.0),
                         Text('Modifier'),
                       ],
@@ -292,7 +310,7 @@ class CustomCard extends StatelessWidget {
                     value: 'supprimer',
                     child: Row(
                       children: [
-                        Icon(Icons.delete),
+                        Icon(Icons.delete, color: d_green),
                         SizedBox(width: 8.0),
                         Text('Supprimer'),
                       ],
@@ -303,7 +321,14 @@ class CustomCard extends StatelessWidget {
               onSelected: (value) {
                 // Code à exécuter en fonction de l'option sélectionnée
                 if (value == 'detail') {
-                  // Action de détail
+                  // Afficher les détails du budget lorsque l'option "Détail" est sélectionnée
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return BudgetDetail(
+                          budget: budget); // Utilisez le widget BudgetDetail
+                    },
+                  );
                 } else if (value == 'modifier') {
                   // Action de modification
                 } else if (value == 'supprimer') {
@@ -318,96 +343,62 @@ class CustomCard extends StatelessWidget {
   }
 }
 
+class BudgetDetail extends StatelessWidget {
+  final BudgetModel budget;
 
+  BudgetDetail({required this.budget});
 
-
-/*class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4, // Niveau d'élévation du Card
-
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          children: [
-            // Première colonne avec une image
-            Image.asset('assets/iconalimentation.png'),
-
-            // Deuxième colonne contenant le texte (Alimentation et 30 sept. 2023)
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Alimentation',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
+    return AlertDialog(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            color: d_green, // Couleur d'arrière-plan pour la partie supérieure
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        'Détails du budget',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
-                  Text(
-                    '30 sept. 2023',
-                    style: TextStyle(fontSize: 14.0,color: d_green),
-                  ),
-                ],
-              ),
+                    IconButton(
+                      icon: Icon(Icons.close,
+                          color: Colors.white), // Icône de fermeture
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
-
-            // Troisième colonne avec le bouton d'options (les trois points verticaux)
-            PopupMenuButton<String>(
-              itemBuilder: (context) {
-                return [
-                  PopupMenuItem(
-                    value: 'detail',
-                    child: Row(
-                      children: [
-                        Icon(Icons.info),
-                        SizedBox(width: 8.0),
-                        Text('Détail'),
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: 'modifier',
-                    child: Row(
-                      children: [
-                        Icon(Icons.edit),
-                        SizedBox(width: 8.0),
-                        Text('Modifier'),
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: 'supprimer',
-                    child: Row(
-                      children: [
-                        Icon(Icons.delete),
-                        SizedBox(width: 8.0),
-                        Text('Supprimer'),
-                      ],
-                    ),
-                  ),
-                ];
-              },
-              onSelected: (value) {
-                // Code à exécuter en fonction de l'option sélectionnée
-                if (value == 'detail') {
-                  // Action de détail
-                } else if (value == 'modifier') {
-                  // Action de modification
-                } else if (value == 'supprimer') {
-                  // Action de suppression
-                }
-              },
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Catégorie: ${budget.categorie}'),
+                Text('Montant: ${budget.montant}'),
+                Text('Montant Restant: ${budget.montant_restant}'),
+                Text('Date: ${budget.date}'),
+                Text('Description: ${budget.description}'),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-}*/
-
-
-
-
+}
