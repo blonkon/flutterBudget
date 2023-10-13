@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class BudgetService {
-  Future<Budget> budget() async {
+  List<Budget> listsBudget = [];
+  int sommeTotal = 0;
+  Future<int> budget() async {
     final response = await http
         .get(Uri.parse('http://10.0.2.2:8080/budget/lire?idBudget=1'));
 

@@ -23,7 +23,7 @@ class _homeState extends State<home> {
   @override
   void initState() {
     super.initState();
-    futureBudget = BudgetService().recupereList();
+    futureBudget = BudgetService().budget();
   }
 
   List imgData = [
