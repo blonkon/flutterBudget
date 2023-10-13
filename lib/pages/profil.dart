@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:budgetflutter/pages/modifierProfil.dart';
 import 'package:flutter/material.dart';
 
@@ -76,8 +78,8 @@ class _UserProfilState extends State<UserProfil> {
                 ),
                 //icone du boutton modifier profile
                 Positioned(
-                  bottom: 5,
-                  right: 100,
+                  bottom: -5,
+                  right: 150,
                   child: InkWell(
                     onTap: () {
                       Navigator.of(context).push(
@@ -105,6 +107,18 @@ class _UserProfilState extends State<UserProfil> {
             const SizedBox(
               height: 55,
             ),
+
+            Transform.translate(
+              offset: Offset(0 ,30),
+              child:
+            Text("Souleymane Fomba",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                )),),
+
             Padding(
               padding: EdgeInsets.all(20.0),
               child: Padding(
@@ -132,12 +146,13 @@ class _UserProfilState extends State<UserProfil> {
                         onTap: partagerApplication,
                         leading: Icon(
                           Icons.share,
-                          color: Colors.green,
+                          color: Colors.blue,
                         ),
                         title: Text("Partager l'application"),
                         tileColor: Colors.white,
                       ),
                     ),
+
                     Card(
                       elevation: 8,
                       child: ListTile(
@@ -146,7 +161,7 @@ class _UserProfilState extends State<UserProfil> {
                         },
                         leading: Icon(
                           Icons.help_outline,
-                          color: Colors.green,
+                          color: Colors.black,
                         ),
                         title: Text("A Propos"),
                         tileColor: Colors.white,
@@ -155,7 +170,9 @@ class _UserProfilState extends State<UserProfil> {
                     Card(
                       elevation: 8,
                       child: ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          SuprimerCompte();
+                        },
                         leading: Icon(
                           Icons.delete_forever_rounded,
                           color: Colors.red,
@@ -168,7 +185,9 @@ class _UserProfilState extends State<UserProfil> {
                       elevation: 8,
                       margin: EdgeInsets.only(top: 50),
                       child: ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          sedeconecter();
+                        },
                         title: Center(
                           child: Text(
                             "Se Déconnecter",
@@ -213,6 +232,24 @@ class _UserProfilState extends State<UserProfil> {
                 'Notre application de gestion de budget est un outil qui vous permet  de suivre, de gérer et d\'analyser vos dépenses et vos revenus pour mieux gérer vos finances personnelles.'),
             actions: [
               TextButton(onPressed: resset, child: Text("Fermer")),
+            ],
+          ));
+  Future sedeconecter() => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: Text("Voulez ête sur le point de vous deconnecter"),
+        actions: [
+          TextButton(onPressed: resset, child: Text("Annuler")),
+          TextButton(onPressed: resset, child: Text("Se deconnecter")),
+            ],
+          ));
+  Future SuprimerCompte() => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: Text("En enpuiyant sur \"Envoyer\" votre compte sera supprimer au cours des 72h prochain"),
+        actions: [
+          TextButton(onPressed: resset, child: Text("Annuler")),
+          TextButton(onPressed: resset, child: Text("Envoyer")),
             ],
           ));
   void submit() {

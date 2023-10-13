@@ -11,8 +11,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<double> budgetValue = [
-    4.40,
-    2.40,
+    35.67,
+    62.40,
     99.40,
     74.40,
     48.40,
@@ -29,9 +29,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF175419),
+        backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text('Statistiques'),
+        title: const Text('Statistiques',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 25,
+        ),),
         centerTitle: true,
       ),
       body: Center(
