@@ -91,6 +91,9 @@ flutter:
     - assets/date.png
     - assets/categoriefordepense.png
     - assets/button.png
+    - assets/mensuel.png
+    - assets/quotidien.png
+    - assets/hebdomadaire.png
   #   - images/a_dot_ham.jpeg
 
 

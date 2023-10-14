@@ -51,6 +51,7 @@ class Categorie{
   int id;
   String titre;
   int userid;
+  int idbudget;
   String img;
   DateTime date;
   int montant;
@@ -63,7 +64,8 @@ class Categorie{
     required this.img,
     required this.date,
     required this.montant,
-    required this.restant
+    required this.restant,
+    required this.idbudget
   });
 
   factory Categorie.fromJson(Map<String, dynamic> json) {
@@ -71,6 +73,7 @@ class Categorie{
       id: json['categorie']['idCategorie'] ?? 0,
       titre: json['categorie']['titre'] ?? '',
       userid: json['utilisateur']['idUtilisateur'],
+      idbudget: json['idBudget'],
       img:'',
       restant: json['montantRestant'] ?? 0,
       montant:json['montant'] ?? 0,
@@ -86,8 +89,22 @@ class Categorie{
       'img':img,
       'montant':montant,
       'dateFin':date,
-      'montantRestant':restant
+      'montantRestant':restant,
+      'idBudget':idbudget
     };
+  }
+}
+class Type {
+  int id;
+  String titre;
+  int userid;
+  Type({required this.id,required this.titre,required this.userid});
+  factory Type.fromJson(Map<String, dynamic> json) {
+    return Type(
+        id: json['idType'] ?? 0,
+        titre: json['titre'] ?? '',
+        userid: json['utilisateur']['idUtilisateur'],
+    );
   }
 }
 
@@ -109,6 +126,8 @@ class MontantModel extends ChangeNotifier {
       notifyListeners();
     });
   }
+  List<Type> Types = [];
+  List<Type> get Typesget => Types;
   List<Depense> get Depensesget => Depenses;
   List<Depense> get CategorieTrieget => CategorieTrie ;
   List<Categorie> get Categoriesget => Categories;
@@ -155,6 +174,20 @@ class MontantModel extends ChangeNotifier {
        montant += depense.montant.toDouble();
        }
      });
+     final responsetype = await http.get(Uri.parse("http://10.0.2.2:8080/Type/lire"));
+     this.Types=[];
+     if(responsetype.statusCode==200){
+       final List<dynamic> jsontypelist = json.decode(responsetype.body);
+       final List<Type> types = jsontypelist.map((e) => Type.fromJson(e)).toList();
+       types.forEach((element) {
+         if(element.userid==this.USER_ID ){
+           this.Types.add(element);
+         }
+       });
+       this.Types.forEach((element) { print(element.titre);});
+     }else{
+       throw Exception('Erreur de requête HTTP : ${response.statusCode}');
+     }
       // this.Depenses.forEach((element) {print(element.categorieid);});
       // I'am trying to get all the categorie from a budget of the current month
      this.Categories=[];
