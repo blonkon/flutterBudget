@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:budgetflutter/depense/depense_accueil.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,8 +23,9 @@ class _LoginState extends State<AddDepense> {
 
   final _formkey = GlobalKey<FormState>();
   DateTime date = DateTime.now();
+  DateTime debut = DateTime(DateTime.now().year,DateTime.now().month);
   String errormessage='';
-  Categoriechoisie categoriechoisi = Categoriechoisie( id: 0,titre: 'Categorie');
+  Categoriechoisie categoriechoisi = Categoriechoisie( id: 0,titre: 'Categorie',debut: DateTime.now());
   TextEditingController montantController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   Typechoisie typechoisie = Typechoisie(id: 1, titre: "Quotidien");
@@ -34,7 +36,7 @@ class _LoginState extends State<AddDepense> {
 
             context: context,
             initialDate: DateTime.now(),
-            firstDate: DateTime(DateTime.now().year,DateTime.now().month),
+            firstDate: debut,
             lastDate: DateTime(DateTime.now().year,DateTime.now().month+1,0),
             locale: const Locale('fr', 'FR'),
             builder: (BuildContext context, Widget? child) {
@@ -72,6 +74,7 @@ class _LoginState extends State<AddDepense> {
           onPressed: () {
             final montantmodel = context.read<MontantModel>();
             montantmodel.Categoriesolde_restant=0;
+            montantmodel.alertecategorie=0;
             Navigator.pop(context);
           },
         ),
@@ -91,7 +94,7 @@ class _LoginState extends State<AddDepense> {
         child:  Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(right: 24.0),
+
             child : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -115,7 +118,7 @@ class _LoginState extends State<AddDepense> {
               child: Image.asset("assets/pocket2.png")
           ),
           Container(
-            padding: EdgeInsets.only(top:15),
+            padding: EdgeInsets.only(top:15,right: 20,left: 20),
             child: Text(errormessage,style: TextStyle(color: Colors.redAccent),),
           ), //le conteneur pour erreur
           Padding(
@@ -186,6 +189,8 @@ class _LoginState extends State<AddDepense> {
                          onCategorySelected: (categoriechoisie) {
                            setState(() {
                              this.categoriechoisi = categoriechoisie;
+                             this.date=DateTime.now();
+                             this.debut=DateTime(DateTime.now().year,DateTime.now().month,this.categoriechoisi.debut.day);
                            });
                          },
                        ));
@@ -453,10 +458,13 @@ class _LoginState extends State<AddDepense> {
                         if( montantenEntier > 0){
                           if(montantmodel.Categoriesolde_restant>=montantenEntier){
                             this.errormessage="";
+                            String jour = date.day.toString().padLeft(2, '0');
+                            print(jour);
                             final depense = DepenseData(
                               description: description,
                               montant: montantenEntier,
-                              date: "${date.year}-${date.month}-${date.day}",
+
+                              date: "${date.year}-${date.month}-${jour}",
                               utilisateur: {"idUtilisateur": montantmodel.USER_ID},
                               budget: {"idBudget": this.categoriechoisi.id},
                               type: {"idType": this.typechoisie.id},
@@ -474,7 +482,12 @@ class _LoginState extends State<AddDepense> {
                               print('Réponse de l\'API : ${response.body}');
                               montantmodel.fetchAlbum();
                               montantmodel.Trieurmontant(0);
-                              Navigator.pop(context);
+                              montantmodel.Categoriesolde_restant=0;
+                              montantmodel.alertecategorie=0;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => depense_accueil()),
+                              );
 
                             } else {
                               // La requête a échoué
@@ -540,6 +553,7 @@ class Total extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<MontantModel>(
         builder: (context, Montant, child) {
+        if(Montant.Categoriesolde_restant >= Montant.alertecategorie){
           return Container(
             padding: EdgeInsets.only(top: 15),
             child: Text('${Montant.formatMontant(Montant.Categoriesolde_restant)} ',
@@ -548,7 +562,27 @@ class Total extends StatelessWidget {
                 fontSize: 24,
               ),
             ),
-          );
+          ); // alerte non declencher
+         
+        }else{
+          return Container(
+            padding: EdgeInsets.only(top: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('${Montant.formatMontant(Montant.Categoriesolde_restant)}',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 24,
+                  ),
+                ),
+                information(montantalerte: Montant.alertecategorie,)
+
+              ],
+            )
+          ); // alerte declencher
+        }
+
         }
     );
   }
@@ -556,7 +590,8 @@ class Total extends StatelessWidget {
 class Categoriechoisie {
    int id;
    String titre;
-   Categoriechoisie({required this.id,required this.titre});
+   DateTime debut;
+   Categoriechoisie({required this.id,required this.titre,required this.debut});
 }
 class Typechoisie {
   int id;
@@ -643,6 +678,7 @@ class CustomOverlay extends StatelessWidget {
                               montantModel.Trieurmontant(categorie.id);
                               this.categoriechoisie.id=categorie.idbudget;
                               this.categoriechoisie.titre=categorie.titre;
+                              this.categoriechoisie.debut=categorie.datedebut;
                               // Action à effectuer lorsque la catégorie est cliquée
                               montantModel.categoriesolde(categorie.id);
                               print(this.categoriechoisie.id.toString());
@@ -720,5 +756,41 @@ class DepenseData {
       'budget': budget,
       'type': type,
     };
+  }
+}
+
+
+class information extends StatelessWidget {
+ late double montantalerte;
+ information({required this.montantalerte});
+  @override
+  Widget build(BuildContext context) {
+    return MenuAnchor(
+      style: MenuStyle(
+
+        padding: MaterialStateProperty.all(EdgeInsetsDirectional.all(10)),
+      ),
+      builder:
+          (BuildContext context, MenuController controller, Widget? child) {
+        return IconButton(
+          onPressed: () {
+            if (controller.isOpen) {
+              controller.close();
+            } else {
+              controller.open();
+            }
+          },
+          icon: const Icon(Icons.info_outline_rounded ,color: Colors.redAccent,),
+          tooltip: '',
+        );
+      },
+      menuChildren: [
+        Container(
+          child: Text("Montant alerte atteint: ${this.montantalerte} fcfa", style:TextStyle(fontFamily: 'Poppins',fontSize: 14,),),
+        )
+
+      ],
+
+    );
   }
 }

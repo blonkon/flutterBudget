@@ -53,9 +53,11 @@ class Categorie{
   int userid;
   int idbudget;
   String img;
+  DateTime datedebut;
   DateTime date;
   int montant;
   int restant;
+  int montantAlerte;
 
   Categorie({
     required this.titre,
@@ -65,7 +67,9 @@ class Categorie{
     required this.date,
     required this.montant,
     required this.restant,
-    required this.idbudget
+    required this.idbudget,
+    required this.montantAlerte,
+    required this.datedebut
   });
 
   factory Categorie.fromJson(Map<String, dynamic> json) {
@@ -75,9 +79,11 @@ class Categorie{
       userid: json['utilisateur']['idUtilisateur'],
       idbudget: json['idBudget'],
       img:'',
+      montantAlerte: json['montantAlerte'] ?? 0,
       restant: json['montantRestant'] ?? 0,
       montant:json['montant'] ?? 0,
-      date:DateTime.parse(json['dateFin'])
+      date:DateTime.parse(json['dateFin']),
+        datedebut:DateTime.parse(json['dateDebut'])
     );
   }
 
@@ -90,7 +96,9 @@ class Categorie{
       'montant':montant,
       'dateFin':date,
       'montantRestant':restant,
-      'idBudget':idbudget
+      'idBudget':idbudget,
+      'montantAlerte':montantAlerte,
+      'dateDebut':datedebut
     };
   }
 }
@@ -109,7 +117,7 @@ class Type {
 }
 
 class MontantModel extends ChangeNotifier {
-
+  double alertecategorie = 0;
   int CategorieId=0;
   double _montant = 0;
   double _montantcat=0;
@@ -207,7 +215,10 @@ class MontantModel extends ChangeNotifier {
      }else{
        throw Exception('Erreur de requête HTTP : ${response.statusCode}');
      }
+     this._montant=montant;
+     notifyListeners();
      return montant;
+
    } else {
      // Gérez les erreurs de requête HTTP ici, par exemple en lançant une exception
      throw Exception('Erreur de requête HTTP : ${response.statusCode}');
@@ -266,6 +277,7 @@ class MontantModel extends ChangeNotifier {
     double test=0;
     this.Categories.forEach((element) {
       if(element.id==id&&element.userid==this.USER_ID){
+        this.alertecategorie=element.montantAlerte.toDouble();
         test=element.restant.toDouble();
         this.Categoriesolde_restant = test;
 
