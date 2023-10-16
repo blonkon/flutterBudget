@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:budgetflutter/pages/ajoutCategorie.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:http/http.dart' as http;
@@ -247,8 +248,17 @@ class _categorieState extends State<categorie> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF175419),
-        child: Icon(Icons.add_outlined, color: Color(0xFFFFFFFF)),
-        onPressed: () {},
+        hoverColor: Colors.white,
+        child: Icon(
+          Icons.add_outlined,
+          color: Color(0xFFFFFFFF),
+          size: 30,
+        ),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ajoutCategorie()),
+          );
+        },
       ),
     );
   }

@@ -176,7 +176,7 @@ class _BudgetFormState extends State<BudgetForm> {
             // Champ 'Montant d'alerte'
             TextFormField(
               controller: _montantAlerteController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Montant d\'alerte',
                 prefixIcon: Icon(
                   Icons.warning,
